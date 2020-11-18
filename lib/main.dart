@@ -6,5 +6,5 @@ import 'package:lab_4/pages/main_page.dart';
 
 
 void main() {
-  runApp(Favorites());
+  runApp(Login());
 }
