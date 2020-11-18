@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lab_4/pages/favorites.dart';
-import 'package:lab_4/pages/login.dart';
-import 'package:lab_4/pages/main_page.dart';
+import 'package:cryptoapp/pages/favorites.dart';
+import 'package:cryptoapp/pages/login.dart';
+import 'package:cryptoapp/pages/main_page.dart';
 
 
 
