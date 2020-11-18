@@ -1,4 +1,4 @@
-# lab_4
+# Crypto App
 
 A new Flutter application.
 
