@@ -25,6 +25,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Color(0xFF003942),
       body: MainPage(),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF002B32),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,
         showUnselectedLabels: false,
