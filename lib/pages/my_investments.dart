@@ -9,6 +9,7 @@ class _MyInvestmentsState extends State<MyInvestments> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: Container(

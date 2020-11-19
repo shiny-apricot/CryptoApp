@@ -1,3 +1,4 @@
+import 'package:cryptoapp/pages/my_investments.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoapp/pages/favorites.dart';
 import 'package:cryptoapp/pages/login.dart';
@@ -19,12 +20,17 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _currentIndex = 0;
+  List<Widget> _bottomBarPage = <Widget>[
+    MainPage(),
+    Favorites(),
+    MyInvestments(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF003942),
-      body: MainPage(),
+      body: _bottomBarPage.elementAt(_currentIndex),
       appBar: AppBar(
         backgroundColor: Color(0xFF002B32),
       ),

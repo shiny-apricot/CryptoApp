@@ -9,7 +9,9 @@ class _FavoritesState extends State<Favorites> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text('favorites'),
         Expanded(
           child: Container(
             alignment: Alignment.bottomCenter,
@@ -18,7 +20,7 @@ class _FavoritesState extends State<Favorites> {
               color: Colors.white38,
             ),
           ),
-        )
+        ),
       ],
     );
   }
