@@ -20,6 +20,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _currentIndex = 0;
+
   List<Widget> _bottomBarPage = <Widget>[
     MainPage(),
     Favorites(),
@@ -36,12 +37,25 @@ class _HomeState extends State<Home> {
     CustomAppBar()
   ];
 
+  List<Widget> _floatingActionButtonSelection = <Widget>[
+    null,
+    null,
+    FloatingActionButton(onPressed: (){
+      print('add investment');
+    })
+
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF003942),
+
       body: _bottomBarPage.elementAt(_currentIndex),
+
       appBar: _appBarSelection.elementAt(_currentIndex),
+
+      floatingActionButton: _floatingActionButtonSelection.elementAt(_currentIndex),
+
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,
         showUnselectedLabels: false,
