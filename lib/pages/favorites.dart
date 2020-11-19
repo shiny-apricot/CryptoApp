@@ -8,20 +8,23 @@ class Favorites extends StatefulWidget {
 class _FavoritesState extends State<Favorites> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('favorites'),
-        Expanded(
-          child: Container(
+    return SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Color(0xFF003942),
+            ),
+          ),
+          Container(
             alignment: Alignment.bottomCenter,
             child: Divider(
               thickness: 0.5,
               color: Colors.white38,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
