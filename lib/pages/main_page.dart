@@ -14,6 +14,13 @@ class _MainPageState extends State<MainPage> {
           Expanded(
             child: Container(
               color: Color(0xFF003942),
+
+
+
+              /*KODU BURAYA YAZIN*/
+
+
+
             ),
           ),
           Container(
