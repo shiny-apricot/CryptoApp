@@ -41,15 +41,16 @@ class _HomeState extends State<Home> {
     null,
     null,
     FloatingActionButton(
-      onPressed: (){
-      print('add investment');
-    },
       backgroundColor: Color(0xFFFEAD34),
+
       child: Icon(
         Icons.add,
         color: Colors.grey[850],
         size: 30.0,
       ),
+      onPressed: (){
+        print('add investment');
+      },
     )
 
   ];
