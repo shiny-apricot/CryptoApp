@@ -52,7 +52,6 @@ class _MyInvestmentsState extends State<MyInvestments> {
           Expanded(
             child: Container(
               padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-
               color: Color(0xFF003942),
 
               child: ListView.builder(

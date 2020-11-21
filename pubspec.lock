@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  dropdown_search:
+    dependency: "direct main"
+    description:
+      name: dropdown_search
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.8"
   fake_async:
     dependency: transitive
     description:
@@ -88,6 +95,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0-nullsafety.1"
+  selection_menu:
+    dependency: "direct main"
+    description:
+      name: selection_menu
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.0"
   sky_engine:
     dependency: transitive
     description: flutter

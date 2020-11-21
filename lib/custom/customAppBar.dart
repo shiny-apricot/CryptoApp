@@ -31,7 +31,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             Expanded(
               child: RaisedButton(
-                onPressed: () {},
                 color: Color(0xFFFEAD34),
                 child: Text(
                   'Add an Investment',
@@ -40,6 +39,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       fontWeight: FontWeight.bold
                   ),
                 ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/addInvestment');
+                },
               ),
             ),
           ],
