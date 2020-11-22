@@ -1,7 +1,6 @@
 import 'package:cryptoapp/pages/my_investments.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoapp/pages/favorites.dart';
-import 'package:cryptoapp/pages/login.dart';
 import 'package:cryptoapp/pages/main_page.dart';
 import 'package:cryptoapp/custom/customAppBar.dart';
 import 'package:cryptoapp/misc/route_generator.dart';
@@ -9,11 +8,9 @@ import 'package:cryptoapp/misc/route_generator.dart';
 
 void main() {
   runApp(MaterialApp(
-
     title: 'CryptoApp',
-    initialRoute: '/',
+    initialRoute: '/home',
     onGenerateRoute: RouteGenerator.generateRoute,
-
 
   ));
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../main.dart';
-
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -13,9 +11,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-
         body: Container(
-
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -58,8 +54,6 @@ class _LoginState extends State<Login> {
                        ),
                       ),
                      ),
-
-
                     Align(
                       child: Container(
                        height: 50,
@@ -108,7 +102,6 @@ class _LoginState extends State<Login> {
                       child:Container(
                         height: 50,
                         width: 180,
-
                         margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                         decoration: new BoxDecoration(
                           color: Color(0xFFE19600),
@@ -122,19 +115,15 @@ class _LoginState extends State<Login> {
                               ),
                           ),
                         onPressed: (){
-                          Navigator.push(context, new MaterialPageRoute(
-                          builder: (context) => Home(),
-                            ));
+                          Navigator.of(context).pushNamed('/home');
                           },
                         ),
                       ),
                      ),
-
                   SizedBox(
                     height: 160,
                   ),
                  Expanded(
-
                    child: Container(
                       width: double.infinity,
                         height: 100,
@@ -151,8 +140,6 @@ class _LoginState extends State<Login> {
                                       fontSize: 15,
                                     ),
                                   ),
-
-
                               ),
                               Expanded(
                                 child:TextButton(
