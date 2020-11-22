@@ -1,4 +1,3 @@
-import 'package:cryptoapp/pages/add_investment.dart';
 import 'package:cryptoapp/pages/my_investments.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoapp/pages/favorites.dart';
@@ -41,35 +40,32 @@ class _HomeState extends State<Home> {
     CustomAppBar()
   ];
 
-  List<Widget> _floatingActionButtonSelection = <Widget>[
-    null,
-    null,
-    FloatingActionButton(
-      backgroundColor: Color(0xFFFEAD34),
-
-      child: Icon(
-        Icons.add,
-        color: Colors.grey[850],
-        size: 30.0,
-      ),
-      onPressed: (){
-        print('add investment');
-      },
-    )
-
-  ];
+  List<Widget> fabList(BuildContext context) {
+    return <Widget>[
+      null,
+      null,
+      FloatingActionButton(
+        backgroundColor: Color(0xFFFEAD34),
+        child: Icon(
+          Icons.add,
+          color: Colors.grey[850],
+          size: 30.0,
+        ),
+        onPressed: () {
+          Navigator.of(context).pushNamed('/addInvestment');
+        },
+      )
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Color(0xFF003942),
-
       body: _bottomBarPage.elementAt(_currentIndex),
-
       appBar: _appBarSelection.elementAt(_currentIndex),
-
-      floatingActionButton: _floatingActionButtonSelection.elementAt(_currentIndex),
-
+      floatingActionButton: fabList(context).elementAt(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,
         showUnselectedLabels: false,

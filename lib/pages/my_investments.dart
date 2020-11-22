@@ -53,21 +53,17 @@ class _MyInvestmentsState extends State<MyInvestments> {
             child: Container(
               padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
               color: Color(0xFF003942),
-
               child: ListView.builder(
                 itemCount: investList.length,
-
                 itemBuilder: (context,index){
                   Investment inv = investList[index];
                   return Card(
                     color: Color(0xFF002B32),
-
                     child: ExpansionTile(
                       backgroundColor: Color(0xFF002B32),
                       expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
                       tilePadding: EdgeInsets.fromLTRB(25, 10, 25, 10),
                       childrenPadding: EdgeInsets.fromLTRB(25, 10, 25, 10),
-
                       title: Row(
                         children: [
                           Text('${inv.count} ${inv.type}',
@@ -79,7 +75,6 @@ class _MyInvestmentsState extends State<MyInvestments> {
                           profitCalculator(inv)
                         ],
                       ),
-
                       children: [
                         Text('Initial Value: \$${inv.count * inv.initialValue}',
                           style: TextStyle(
