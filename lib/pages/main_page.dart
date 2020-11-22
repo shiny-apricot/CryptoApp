@@ -165,7 +165,7 @@ class _MainPageState extends State<MainPage> {
                         trailing: Icon(FontAwesomeIcons.solidHeart,
                           color: (isPressed2) ? Colors.red : Colors.white,
                         ),
-                        title: Text('Dollar',
+                        title: Text('Dollar                 7.64',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15.0,
@@ -194,7 +194,7 @@ class _MainPageState extends State<MainPage> {
                         trailing: Icon(FontAwesomeIcons.solidHeart,
                           color: (isPressed3) ? Colors.red : Colors.white,
                         ),
-                        title: Text('Euro',
+                        title: Text('Euro                   9.05',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15.0,
