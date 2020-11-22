@@ -4,6 +4,7 @@ import 'package:cryptoapp/pages/favorites.dart';
 import 'package:cryptoapp/pages/main_page.dart';
 import 'package:cryptoapp/custom/customAppBar.dart';
 import 'package:cryptoapp/misc/route_generator.dart';
+import 'package:cryptoapp/pages/profile.dart';
 
 
 void main() {
@@ -26,6 +27,7 @@ class _HomeState extends State<Home> {
 
   List<Widget> _bottomBarPage = <Widget>[
     MainPage(),
+    Profile(),
     Favorites(),
     MyInvestments(),
   ];
@@ -36,12 +38,18 @@ class _HomeState extends State<Home> {
     ),
     AppBar(
       backgroundColor: Color(0xFF002B32),
+      title: Text('My Profile'),
+      centerTitle: true,
+    ),
+    AppBar(
+      backgroundColor: Color(0xFF002B32),
     ),
     CustomAppBar()
   ];
 
   List<Widget> fabList(BuildContext context) {
     return <Widget>[
+      null,
       null,
       null,
       FloatingActionButton(
@@ -82,6 +90,9 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
               icon: Icon(Icons.favorite),
               label: 'Favorites'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'My Profile'),
           BottomNavigationBarItem(
               icon: Icon(Icons.monetization_on),
               label: 'Investments')
