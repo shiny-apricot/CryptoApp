@@ -10,9 +10,12 @@ import 'package:cryptoapp/misc/route_generator.dart';
 
 void main() {
   runApp(MaterialApp(
+
     title: 'CryptoApp',
     initialRoute: '/',
     onGenerateRoute: RouteGenerator.generateRoute,
+
+
   ));
 }
 
@@ -80,7 +83,7 @@ class _HomeState extends State<Home> {
         iconSize: 30,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
+            icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
