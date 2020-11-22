@@ -89,10 +89,10 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.favorite),
-              label: 'Favorites'),
+              label: 'My Profile'),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              label: 'My Profile'),
+              label: 'My Favorites'),
           BottomNavigationBarItem(
               icon: Icon(Icons.monetization_on),
               label: 'Investments')
