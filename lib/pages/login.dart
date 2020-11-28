@@ -23,7 +23,6 @@ class _LoginState extends State<Login> {
               ]
             ),
           ),
-
                  child:Column(
 
                    children: <Widget>[
@@ -34,7 +33,6 @@ class _LoginState extends State<Login> {
                      child:Container(
                        height: 50,
                        width: 250,
-
                        margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                        decoration: new BoxDecoration(
                          color: Color(0xFFAED6F1 ),

@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AddingRow extends StatelessWidget {
+class AddingRow extends StatefulWidget {
+  @override
+  _AddingRowState createState() => _AddingRowState();
+}
+
+class _AddingRowState extends State<AddingRow> {
 
   double _investmentValue = 0;
 
@@ -25,7 +30,7 @@ class AddingRow extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Container(
-                height: 70,
+                height: 60,
                 width: 230,
                 // margin: EdgeInsets.fromLTRB(60, 30, 60, 30),
                 decoration: BoxDecoration(
@@ -52,3 +57,7 @@ class AddingRow extends StatelessWidget {
     );
   }
 }
+
+// class AddingRow extends StatelessWidget {
+//
+// }

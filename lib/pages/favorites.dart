@@ -8,6 +8,7 @@ class Favorites extends StatefulWidget {
 
 class _FavoritesState extends State<Favorites> {
   @override
+
   bool isPressed = false;
   bool isPressed1 = false;
   bool isPressed2 = false;
