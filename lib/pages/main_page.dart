@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class MainPage extends StatefulWidget {
 
@@ -19,7 +18,6 @@ class _MainPageState extends State<MainPage> {
   bool isPressed6 = false;
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Column(
         children: [
@@ -47,7 +45,6 @@ class _MainPageState extends State<MainPage> {
                 )
             ),
           ),
-
           Align(
             child: Container(
               margin: EdgeInsets.only(top: 40, left: 40, right: 40),
@@ -63,7 +60,6 @@ class _MainPageState extends State<MainPage> {
                 padding: const EdgeInsets.only(left: 30),
                   child: TextField(
                    decoration: InputDecoration(
-
                     hintStyle: TextStyle(
                         color: Colors.tealAccent[100],
                       fontSize: 15,
@@ -169,7 +165,7 @@ class _MainPageState extends State<MainPage> {
                         trailing: Icon(FontAwesomeIcons.solidHeart,
                           color: (isPressed2) ? Colors.red : Colors.white,
                         ),
-                        title: Text('Dollar',
+                        title: Text('Dollar                 7.64',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15.0,
@@ -198,7 +194,7 @@ class _MainPageState extends State<MainPage> {
                         trailing: Icon(FontAwesomeIcons.solidHeart,
                           color: (isPressed3) ? Colors.red : Colors.white,
                         ),
-                        title: Text('Euro',
+                        title: Text('Euro                   9.05',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15.0,
@@ -301,7 +297,6 @@ class _MainPageState extends State<MainPage> {
 
               ),
 
-              /*KODU BURAYA YAZIN*/
 
 
 
