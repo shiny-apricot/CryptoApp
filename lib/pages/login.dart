@@ -18,6 +18,16 @@ class _LoginState extends State<Login> {
         body: Container(
           color: Color(0xFF003942),
           width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              colors: [
+                Colors.lightBlue[700],
+                Colors.cyan[400],
+                Colors.cyan[300],
+              ]
+            ),
+          ),
                  child:Column(
                    children: <Widget>[
                      SizedBox(
@@ -27,7 +37,6 @@ class _LoginState extends State<Login> {
                      child:Container(
                        height: 50,
                        width: 250,
-
                        margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                        decoration: new BoxDecoration(
                          color: Color(0xFFAED6F1 ),

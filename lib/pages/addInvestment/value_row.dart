@@ -14,14 +14,15 @@ class ValueRow extends StatelessWidget {
             color: Color(0x28D3D3D3),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.fromLTRB(7, 0, 20, 5),
+                    width: 170,
                     padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                     child: Text(
                       'The value of 1 TRY at Investment Time',
@@ -31,30 +32,28 @@ class ValueRow extends StatelessWidget {
                         ),
                       ),
                   ),
-                  Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          color: Color(0xFFFEAD34),
-                        ),
-                        child: FlatButton(
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          onPressed: (){},
-                          color: Colors.transparent,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Enter Current Value',
-                                style: TextStyle(
-                                  fontSize: 13.0,
-                                ),
-                              ),
-                            ],
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      color: Color(0xFFFEAD34),
+                    ),
+                    child: FlatButton(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      onPressed: (){},
+                      color: Colors.transparent,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Enter Current Value',
+                            style: TextStyle(
+                              fontSize: 13.0,
+                            ),
                           ),
-                        ),
-                      )
+                        ],
+                      ),
+                    ),
                   )
                 ],
               ),

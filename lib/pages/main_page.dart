@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class MainPage extends StatefulWidget {
+class Home extends StatefulWidget {
 
   @override
-  _MainPageState createState() => _MainPageState();
+  _HomeState createState() => _HomeState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _HomeState extends State<Home> {
   bool isPressed = false;
   bool isPressed1 = false;
   bool isPressed2 = false;
@@ -21,53 +21,46 @@ class _MainPageState extends State<MainPage> {
     return SafeArea(
       child: Column(
         children: [
-          Align(
-            child: Container(
-              height: 50,
-              width: 300,
-              margin: EdgeInsets.only(top: 40, left: 40, right: 40),
-              decoration: new BoxDecoration(
-                color: Color(0xFF003941),
-                borderRadius: new BorderRadius.all(Radius.elliptical(20, 50)),
-                border: Border.all(color: Colors.white, width: 0.0),
-              ),
-                child: ListTile(
-                  trailing: Icon(FontAwesomeIcons.liraSign,
-                  color: Colors.red,
-                  ),
-                  title: Text('Selected Currency',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                )
+          Container(
+            alignment: Alignment.center,
+            height: 60,
+            margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+            decoration: new BoxDecoration(
+              color: Color(0x35D3D3D3),
+              borderRadius: new BorderRadius.all(Radius.circular(10)),
             ),
-          ),
-          Align(
-            child: Container(
-              margin: EdgeInsets.only(top: 40, left: 40, right: 40),
-
-              decoration: new BoxDecoration(
-
-                color: Color(0xFF003941),
-                borderRadius: new BorderRadius.all(Radius.elliptical(20, 50)),
-                border: Border.all(color: Colors.white, width: 0.0),
-
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30),
-                  child: TextField(
-                   decoration: InputDecoration(
-                    hintStyle: TextStyle(
-                        color: Colors.tealAccent[100],
-                      fontSize: 15,
-                      fontWeight: FontWeight.w100,
-                    ),
-                    hintText: 'Search',
-                    border:InputBorder.none,
+              child: ListTile(
+                trailing: Icon(FontAwesomeIcons.liraSign,
+                color: Colors.red,
+                ),
+                title: Text('Main Currency',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 19.0,
+                    fontStyle: FontStyle.italic,
                   ),
+                ),
+              )
+          ),
+          Divider(height: 45,thickness: 1,color: Colors.grey[600], indent: 25, endIndent: 25),
+          Container(
+            margin: EdgeInsets.only(left: 20, right: 20),
+            decoration: new BoxDecoration(
+              color: Color(0xFF003941),
+              borderRadius: new BorderRadius.all(Radius.circular(25)),
+              border: Border.all(color: Colors.white, width: 1),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30),
+                child: TextField(
+                 decoration: InputDecoration(
+                  hintStyle: TextStyle(
+                      color: Colors.tealAccent[100],
+                    fontSize: 15,
+                    fontWeight: FontWeight.w100,
+                  ),
+                  hintText: 'Search...',
+                  border:InputBorder.none,
                 ),
               ),
             ),

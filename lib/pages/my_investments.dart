@@ -11,7 +11,6 @@ class MyInvestments extends StatefulWidget {
 class _MyInvestmentsState extends State<MyInvestments> {
 
   Widget profitCalculator(Investment investment){
-
     double profit;
 
     if(investment.type == 'BTC')
@@ -22,15 +21,18 @@ class _MyInvestmentsState extends State<MyInvestments> {
       profit = (CurrencyValues.ETH - investment.initialValue)*investment.count;
 
     if(profit >= 0)
-      return Text('+${profit}',
+      return Text(
+        '+${profit}',
         style: TextStyle(
-          color: Colors.green
+          color: Colors.green,
+          fontSize: 17
        ),
       );
     else
-      return Text('+${profit}',
+      return Text('${profit}',
         style: TextStyle(
-            color: Colors.redAccent
+            color: Colors.redAccent,
+            fontSize: 17
         ),
       );
   }
@@ -62,30 +64,60 @@ class _MyInvestmentsState extends State<MyInvestments> {
                     child: ExpansionTile(
                       backgroundColor: Color(0xFF002B32),
                       expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-                      tilePadding: EdgeInsets.fromLTRB(25, 10, 25, 10),
-                      childrenPadding: EdgeInsets.fromLTRB(25, 10, 25, 10),
-                      title: Row(
-                        children: [
-                          Text('${inv.count} ${inv.type}',
-                            style: TextStyle( color: Colors.white ),
-                          ),
-                          SizedBox(
-                            width: 30.0,
-                          ),
-                          profitCalculator(inv)
-                        ],
+                      tilePadding: EdgeInsets.fromLTRB(25, 15, 10, 5),
+                      childrenPadding: EdgeInsets.fromLTRB(25, 10, 25, 25),
+                      trailing: Container(
+                        width: 110,
+                        child: Row(
+                          children: [
+                            Text(
+                              'See Details',
+                              style: TextStyle(
+                                color: Colors.grey[400]
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Icon(
+                                Icons.arrow_drop_down_circle_outlined,
+                              color: Colors.grey[400],
+                            )
+                          ],
+                        ),
                       ),
+                      title: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                        child: Text('${inv.count} ${inv.type}',
+                          style: TextStyle(
+                              color: Colors.white,
+                            fontSize: 18
+                          ),
+                        ),
+                      ),
+                      subtitle: profitCalculator(inv),
                       children: [
-                        Text('Initial Value: \$${inv.count * inv.initialValue}',
+                        Text('Initial Value:',
                           style: TextStyle(
                             color: Colors.grey[300],
                             fontSize: 18.0,
                           ),
                         ),
-                        Text('Current Value: \$${valueCalculator(inv)}',
+                        Text('\$${inv.count * inv.initialValue}',
+                          style: TextStyle(
+                            color: Colors.amber,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        SizedBox(height: 15),
+                        Text('Current Value:',
                           style: TextStyle(
                             color: Colors.grey[300],
                             fontSize: 18.0,
+                          ),
+                        ),
+                        Text('\$${valueCalculator(inv)}',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.amber,
                           ),
                         ),
                       ],

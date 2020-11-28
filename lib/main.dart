@@ -4,30 +4,26 @@ import 'package:cryptoapp/pages/favorites.dart';
 import 'package:cryptoapp/pages/main_page.dart';
 import 'package:cryptoapp/custom/customAppBar.dart';
 import 'package:cryptoapp/misc/route_generator.dart';
-import 'package:cryptoapp/pages/profile.dart';
-
 
 void main() {
   runApp(MaterialApp(
     title: 'CryptoApp',
     initialRoute: '/home',
     onGenerateRoute: RouteGenerator.generateRoute,
-
   ));
 }
 
-class Home extends StatefulWidget {
+class Main extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _MainState createState() => _MainState();
 }
 
-class _HomeState extends State<Home> {
+class _MainState extends State<Main> {
 
   int _currentIndex = 0;
 
   List<Widget> _bottomBarPage = <Widget>[
-    MainPage(),
-    Profile(),
+    Home(),
     Favorites(),
     MyInvestments(),
   ];
@@ -38,18 +34,12 @@ class _HomeState extends State<Home> {
     ),
     AppBar(
       backgroundColor: Color(0xFF002B32),
-      title: Text('My Profile'),
-      centerTitle: true,
-    ),
-    AppBar(
-      backgroundColor: Color(0xFF002B32),
     ),
     CustomAppBar()
   ];
 
   List<Widget> fabList(BuildContext context) {
     return <Widget>[
-      null,
       null,
       null,
       FloatingActionButton(
@@ -70,6 +60,54 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      drawer: Drawer(
+        child: Container(
+          color: Color(0xFF003942),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height / 2,
+                child: DrawerHeader(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                        'Crypto App',
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.grey[200]
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF002B32),
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: FlatButton(
+                  color: Color(0xFFFEAD34),
+                  onPressed: (){
+                    Navigator.of(context).pushNamed('/profile');
+                  },
+                  child: Container(
+                    height: 60,
+                    alignment: Alignment.center,
+                    child: Text(
+                        'My Profile',
+                      style: TextStyle(
+                        color: Colors.grey[900],
+                        fontSize: 17
+                      ),
+                    ),
+                    ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       backgroundColor: Color(0xFF003942),
       body: _bottomBarPage.elementAt(_currentIndex),
       appBar: _appBarSelection.elementAt(_currentIndex),
@@ -87,9 +125,6 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'My Profile'),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: 'My Favorites'),
