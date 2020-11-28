@@ -29,8 +29,8 @@ class _ProfileState extends State<Profile> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  child: Text('Yasin İNAL',
-                    style:TextStyle(color: Colors.white, fontSize: 45.0))
+                  child: Text('Emin Yasin UYSAL',
+                    style:TextStyle(color: Colors.white, fontSize: 30.0))
                 )
                 ,
                 Container(

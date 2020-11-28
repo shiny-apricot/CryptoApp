@@ -13,45 +13,43 @@ class SelectionRow extends StatefulWidget {
 class _SelectionRowState extends State<SelectionRow> {
   @override
   Widget build(BuildContext context) {
-    return  Expanded(
-        flex: 3,
-        child: Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-            child: SelectionMenu<String>(
-              itemSearchMatcher: this.itemSearchMatcher,
-              showSelectedItemAsTrigger: true,
-              initiallySelectedItemIndex: 0,
-              itemsList: ['BTC','TRY','ETH'],
-              itemBuilder: this.itemBuilder,
-              onItemSelected: (item){
-                setState(() {
-                  SelectionRow.selectedCurrency = item;
-                  print(item);
-                });
-              },
+    return  Container(
+      height: 60,
+        margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+        child: SelectionMenu<String>(
+          itemSearchMatcher: this.itemSearchMatcher,
+          showSelectedItemAsTrigger: true,
+          initiallySelectedItemIndex: 0,
+          itemsList: ['BTC','TRY','ETH'],
+          itemBuilder: this.itemBuilder,
+          onItemSelected: (item){
+            setState(() {
+              SelectionRow.selectedCurrency = item;
+              print(item);
+            });
+          },
 
-              componentsConfiguration: DialogComponentsConfiguration<String>().copyWith(
-                searchFieldComponent:
-                SearchFieldComponent(builder: _searchFieldBuilder),
+          componentsConfiguration: DialogComponentsConfiguration<String>().copyWith(
+            searchFieldComponent:
+            SearchFieldComponent(builder: _searchFieldBuilder),
 
-                searchBarComponent:
-                SearchBarComponent(builder: _searchBarBuilder),
+            searchBarComponent:
+            SearchBarComponent(builder: _searchBarBuilder),
 
-                searchingIndicatorComponent:
-                SearchingIndicatorComponent(builder: _searchingIndicatorBuilder),
+            searchingIndicatorComponent:
+            SearchingIndicatorComponent(builder: _searchingIndicatorBuilder),
 
-                triggerComponent:
-                TriggerComponent(builder: _triggerBuilder),
-                triggerFromItemComponent:
-                TriggerFromItemComponent(builder: _triggerFromItemBuilder),
+            triggerComponent:
+            TriggerComponent(builder: _triggerBuilder),
+            triggerFromItemComponent:
+            TriggerFromItemComponent(builder: _triggerFromItemBuilder),
 
-                menuAnimationDurations: MenuAnimationDurations(
-                    forward: const Duration(milliseconds: 500),
-                    reverse: const Duration(milliseconds: 500)
-                ),
-                animationComponent: DropdownAnimationComponent(),
-              ),
-            )
+            menuAnimationDurations: MenuAnimationDurations(
+                forward: const Duration(milliseconds: 500),
+                reverse: const Duration(milliseconds: 500)
+            ),
+            animationComponent: DropdownAnimationComponent(),
+          ),
         )
     );
   }
