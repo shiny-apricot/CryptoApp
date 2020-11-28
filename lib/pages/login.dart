@@ -2,16 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
+
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+
+  bool checkValue = false;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
         body: Container(
+          color: Color(0xFF003942),
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -24,7 +29,6 @@ class _LoginState extends State<Login> {
             ),
           ),
                  child:Column(
-
                    children: <Widget>[
                      SizedBox(
                        height: 300,
@@ -62,7 +66,7 @@ class _LoginState extends State<Login> {
                          borderRadius: new BorderRadius.all(Radius.elliptical(20, 50)),
                        ),
                        child: Padding(
-                         padding: const EdgeInsets.only(left: 20),
+                         padding: const EdgeInsets.only(left: 20,top: 20),
                           child: TextField(
                            decoration: InputDecoration(
                              hintStyle: TextStyle(
@@ -79,20 +83,35 @@ class _LoginState extends State<Login> {
                        height: 10,
                      ),
                      Padding(
-                       padding: const EdgeInsets.only(left: 160.0),
-                       child: TextButton(
-                         onPressed: (){
+                       padding: const EdgeInsets.only(left: 180.0),
+                           child: Row(
+                             children: [
+                               Checkbox(
 
-                         },
-                         child: Text(
+                                 value : checkValue,
+                                 onChanged: (bool value){
+
+                                   setState(() {
+                                     checkValue = value;
+                                   });
+                                 },
+                               ),
+                               Text('remember me',
+                               style: TextStyle(
+                                 color: Colors.white,
+                               ),
+                               ),
+                             ],
+                           ),
+                        /* child: Text(
                            'Remember me',
                            style: TextStyle(
-                             color: Colors.black,
+                             color: Colors.white,
 
                            ),
-                         ),
+                         ),*/
                        ),
-                     ),
+
                      SizedBox(
                        height: 1,
                      ),
