@@ -1,3 +1,5 @@
+import 'package:cryptoapp/data/currencyValues.dart';
+import 'package:cryptoapp/data/services/crypto_api_service.dart';
 import 'package:flutter/material.dart';
 
 class LoginVertical extends StatefulWidget {
@@ -6,6 +8,17 @@ class LoginVertical extends StatefulWidget {
 }
 
 class _LoginVerticalState extends State<LoginVertical> {
+
+
+  @override
+  void initState(){
+
+    //YUSUF ARAMA KOMUTU BURADA ISTEDIGINI ARIYON BU KOMUTLA BUNU ISTEDIGIN YERDE KULLAN
+    CurrencyValues cv = new CurrencyValues();
+    cv.search('bt');
+    //SANA BI ID LISTESI DONDURUYO BU ID'LERLE API DAN ARAMA YAPACAN
+    
+  }
 
   bool checkValue = false;
 
@@ -115,6 +128,8 @@ class _LoginVerticalState extends State<LoginVertical> {
                       ),
                       onPressed: (){
                         Navigator.of(context).pushNamed('/home');
+                        // CryptoApiService cas = new CryptoApiService();
+                        // cas.getNames();
                       },
                     ),
                   ),
