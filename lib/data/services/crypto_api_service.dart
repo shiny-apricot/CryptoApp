@@ -96,33 +96,33 @@ class CryptoApiService{
     return objectList;
   }
 
-  Future<List> getNames() async{
-    String url = "https://api.nomics.com/v1/currencies?key=867f3e9becebffbaba68fa386bcf22bd&attributes=id";
-    List data = await ws.getData(url);
-    StringBuffer sb = new StringBuffer();
-    print(data.length);
-    sb.write("[");
-
-    for(int i=0; i<data.length; i++){
-      sb.write("'${data[i]['id']}',");
-    }
-
-    String dataString = sb.toString();
-    log(dataString);
-  }
-
-  Future<List> getSortedNames() async{
-    String url = "https://api.nomics.com/v1/currencies/ticker?key=867f3e9becebffbaba68fa386bcf22bd&sort=rank";
-    List data = await ws.getData(url);
-    StringBuffer sb = new StringBuffer();
-    print(data.length);
-    sb.write("[");
-
-    for(int i=0; i<data.length; i++){
-      sb.write("'${data[i]['id']}',");
-    }
-
-    String dataString = sb.toString();
-    log(dataString);
-  }
+  // Future<List> getNames() async{
+  //   String url = "https://api.nomics.com/v1/currencies?key=867f3e9becebffbaba68fa386bcf22bd&attributes=id";
+  //   List data = await ws.getData(url);
+  //   StringBuffer sb = new StringBuffer();
+  //   print(data.length);
+  //   sb.write("[");
+  //
+  //   for(int i=0; i<data.length; i++){
+  //     sb.write("'${data[i]['id']}',");
+  //   }
+  //
+  //   String dataString = sb.toString();
+  //   log(dataString);
+  // }
+  //
+  // Future<List> getSortedNames() async{
+  //   String url = "https://api.nomics.com/v1/currencies/ticker?key=867f3e9becebffbaba68fa386bcf22bd&sort=rank";
+  //   List data = await ws.getData(url);
+  //   StringBuffer sb = new StringBuffer();
+  //   print(data.length);
+  //   sb.write("[");
+  //
+  //   for(int i=0; i<data.length; i++){
+  //     sb.write("'${data[i]['id']}',");
+  //   }
+  //
+  //   String dataString = sb.toString();
+  //   log(dataString);
+  // }
 }

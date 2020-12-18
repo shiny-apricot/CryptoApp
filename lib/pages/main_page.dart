@@ -10,6 +10,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+
+  //YUSUF ARAMA KOMUTU BURADA ISTEDIGINI ARIYON BU KOMUTLA BUNU ISTEDIGIN YERDE KULLAN
+
+  // CurrencyValues cv = new CurrencyValues();
+  // cv.search('bt');
+
+  //SANA BI ID LISTESI DONDURUYO BU ID'LERLE API DAN ARAMA YAPACAN
+
   bool isPressed = false;
   bool isPressed1 = false;
   bool isPressed2 = false;
