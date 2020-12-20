@@ -46,6 +46,15 @@ class CryptoApiService{
         requestCount++;
       }
 
+      if (ids != null) {
+        print('== IDS are => $ids');
+        sb.write('ids=$ids');
+        if (requestCount > 0) {
+          sb.write('&');
+        }
+        requestCount++;
+      }
+
       if (sort != null) {
         print('== sort...');
         if (requestCount > 0) {
@@ -78,18 +87,26 @@ class CryptoApiService{
     print('==> WEB SERVICE CALLED WITH URL ==> ${sb.toString()}');
     List responseList = await ws.getData(sb.toString());
     int length = responseList.length;
+    print('length = $length');
 
-    List<Currency> objectList = List<Currency>();
+    List objectList = List();
 
     for(int i=0; i<length; i++){
 
       String id = responseList[i]['id'];
-      double price = responseList[i]['price'];
-      int rank = responseList[i]['rank'];
+      print(id);
+      String price = responseList[i]['price'];
+      print(price);
+      String rank = responseList[i]['rank'];
+      print(rank);
       String name = responseList[i]['name'];
-      String logoUrl = responseList[i]['logo-url'];
+      print(name);
+      String logoUrl = responseList[i]['logo_url'];
+      print(logoUrl);
 
       Currency currency = Currency(id=id,name=name,price=price,rank=rank,logoUrl=logoUrl);
+      print('for i = $i');
+      print(currency.name);
       objectList.add(currency);
     }
 
