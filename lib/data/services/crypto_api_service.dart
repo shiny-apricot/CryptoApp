@@ -94,19 +94,19 @@ class CryptoApiService{
     for(int i=0; i<length; i++){
 
       String id = responseList[i]['id'];
-      print(id);
+      // print(id); //DEBUG PURPOSE
       String price = responseList[i]['price'];
-      print(price);
+      // print(price); //DEBUG PURPOSE
       String rank = responseList[i]['rank'];
-      print(rank);
+      // print(rank); //DEBUG PURPOSE
       String name = responseList[i]['name'];
-      print(name);
+      // print(name); //DEBUG PURPOSE
       String logoUrl = responseList[i]['logo_url'];
-      print(logoUrl);
+      // print(logoUrl); //DEBUG PURPOSE
 
       Currency currency = Currency(id=id,name=name,price=price,rank=rank,logoUrl=logoUrl);
-      print('for i = $i');
-      print(currency.name);
+      // print('for i = $i'); //DEBUG PURPOSE
+      // print(currency.name); //DEBUG PURPOSE
       objectList.add(currency);
     }
 
