@@ -21,33 +21,28 @@ class _AddInvestmentVerticalState extends State<AddInvestmentVertical> {
         backgroundColor: Color(0xFF002B32),
         toolbarHeight: 70.0,
       ),
-      body: SafeArea(
-        child: Container(
-          color: Color(0xFF003942),
-          padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
-          child: Column(
-            children: [
-              Expanded(
-                flex: 3,
-                child: SelectionRow(),
-              ),
-              Expanded(
-                flex: 5,
-                child: CountRow(),
-              ),
-              Expanded(
-                flex: 7,
-                child: ValueRow(),
-              ),
-              Expanded(
-                flex: 8,
-                child: AddingRow(),
-              ),
-
-
-
-            ],
-          ),
+      body: Container(
+        color: Color(0xFF003942),
+        padding: EdgeInsets.fromLTRB(20, 50, 20, 0),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 3,
+              child: SelectionRow(),
+            ),
+            Expanded(
+              flex: 5,
+              child: CountRow(),
+            ),
+            Expanded(
+              flex: 7,
+              child: ValueRow(),
+            ),
+            Expanded(
+              flex: 9,
+              child: AddingRow(),
+            ),
+          ],
         ),
       ),
     );

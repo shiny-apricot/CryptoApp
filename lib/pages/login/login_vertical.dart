@@ -10,14 +10,25 @@ class LoginVertical extends StatefulWidget {
 class _LoginVerticalState extends State<LoginVertical> {
 
 
+
   @override
   void initState(){
-
     //YUSUF ARAMA KOMUTU BURADA ISTEDIGINI ARIYON BU KOMUTLA BUNU ISTEDIGIN YERDE KULLAN
-    CurrencyValues cv = new CurrencyValues();
-    cv.search('bt');
+
+    // CurrencyValues cv = new CurrencyValues();
+    // List result = cv.search('');
+    //     // List objects = List();
+    //     // count = 0;
+    //     // for(i) {
+    //     //   if(count < 20) {
+    //     //     CryptoApiService cap = CryptoApiService(ids: result[i]);
+    //     //     var data = cap.getObjects();
+    //     //     objects.add(data);
+    //     //   }
+    //     //   count++;
+    // }
+
     //SANA BI ID LISTESI DONDURUYO BU ID'LERLE API DAN ARAMA YAPACAN
-    
   }
 
   bool checkValue = false;
