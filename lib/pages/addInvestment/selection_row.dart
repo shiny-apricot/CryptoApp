@@ -5,7 +5,7 @@ import 'package:selection_menu/selection_menu.dart';
 
 class SelectionRow extends StatefulWidget {
 
-  static String staticSelectedCurrency = 'USD';
+  static String staticSelectedCurrency = 'BTC';
 
   @override
   _SelectionRowState createState() => _SelectionRowState();

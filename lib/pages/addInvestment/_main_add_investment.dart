@@ -1,3 +1,4 @@
+import 'package:cryptoapp/misc/route_generator.dart';
 import 'package:cryptoapp/pages/addInvestment/addInvestmentHorizontal/_addInvestmentHorizontal.dart';
 import 'package:cryptoapp/pages/addInvestment/addInvestmentVertical/_addInvestmentVertical.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,8 @@ class _AddInvestmentMainState extends State<AddInvestmentMain> {
       home: mediaQuery(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-      )
+      ),
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

@@ -5,8 +5,17 @@ class Investment{
   int _id;
   String _currency;
   String _amount;
+  String _initialCurrencyValue;
 
-  Investment(this._id, this._currency, this._amount);
+
+  Investment(
+      this._id, this._currency, this._amount, this._initialCurrencyValue);
+
+  String get initialCurrencyValue => _initialCurrencyValue;
+
+  set initialCurrencyValue(String value) {
+    _initialCurrencyValue = value;
+  }
 
   String get amount => _amount;
 
@@ -31,10 +40,25 @@ class Investment{
 
     if (id != null)
       map['id'] = _id;
-    if(currency != null)
+    else
+      print('id null....');
+
+    if(currency != null) {
+      print('curreny = $_currency');
       map['currency'] = _currency;
+    }
+    else
+      print('currency null....');
+
     if(amount != null)
       map['amount'] = _amount;
+    else
+      print('amount null......');
+
+    if(initialCurrencyValue != null)
+      map['initial_value'] = _initialCurrencyValue;
+    else
+      print('initial null....');
 
     return map;
   }
@@ -44,5 +68,6 @@ class Investment{
     this._id = map['id'];
     this._currency = map['currency'];
     this._amount = map['amount'];
+    this.initialCurrencyValue = map['initial_value'];
   }
 }

@@ -7,6 +7,7 @@ import 'package:cryptoapp/main.dart';
 
 class RouteGenerator{
   static Route<dynamic> generateRoute(RouteSettings settings){
+    print('ROUTE GENERATOR');
 
     final args = settings.arguments;
 
@@ -17,10 +18,6 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => Main());
       case '/addInvestment':
         return MaterialPageRoute(builder: (_) => AddInvestmentMain());
-      case '/profile':
-        return MaterialPageRoute(builder: (_) => Profile());
-      case '/myInvestment':
-        return MaterialPageRoute(builder: (_) => MyInvestments());
     }
   }
 }
