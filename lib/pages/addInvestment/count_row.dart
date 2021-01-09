@@ -1,12 +1,25 @@
 import 'package:cryptoapp/pages/addInvestment/selection_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CountRow extends StatefulWidget {
   @override
   _CountRowState createState() => _CountRowState();
+
+  static var staticCount = '0';
+
 }
 
 class _CountRowState extends State<CountRow> {
+
+  TextEditingController textController;
+
+  @override
+  void initState() {
+    textController = TextEditingController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,6 +53,11 @@ class _CountRowState extends State<CountRow> {
               color: Color(0xFF002B32),
             ),
             child: TextField(
+              onChanged: (text){
+                CountRow.staticCount = text;
+              },
+              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+              controller: textController,
               keyboardType: TextInputType.number,
               maxLength: 20,
               maxLines: 1,
@@ -52,7 +70,7 @@ class _CountRowState extends State<CountRow> {
                 hintStyle: TextStyle(
                     color: Color(0x60FFFFFF)
                 ),
-                suffixText: '${SelectionRow.selectedCurrency}',
+                suffixText: '${SelectionRow.staticSelectedCurrency}',
                 border: InputBorder.none,
               ),
             ),

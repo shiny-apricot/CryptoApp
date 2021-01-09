@@ -1,16 +1,27 @@
+import 'package:cryptoapp/data/currencyValues.dart';
 import 'package:flutter/material.dart';
 import 'package:selection_menu/components_configurations.dart';
 import 'package:selection_menu/selection_menu.dart';
 
 class SelectionRow extends StatefulWidget {
 
-  static String selectedCurrency = 'USD';
+  static String staticSelectedCurrency = 'USD';
 
   @override
   _SelectionRowState createState() => _SelectionRowState();
 }
 
 class _SelectionRowState extends State<SelectionRow> {
+
+  CurrencyValues cv = new CurrencyValues();
+  List currencyValues;
+
+  @override
+  void initState() {
+    currencyValues = cv.currencyIdList;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -20,11 +31,11 @@ class _SelectionRowState extends State<SelectionRow> {
           itemSearchMatcher: this.itemSearchMatcher,
           showSelectedItemAsTrigger: true,
           initiallySelectedItemIndex: 0,
-          itemsList: ['BTC','TRY','ETH'],
+          itemsList: currencyValues,
           itemBuilder: this.itemBuilder,
           onItemSelected: (item){
             setState(() {
-              SelectionRow.selectedCurrency = item;
+              SelectionRow.staticSelectedCurrency = item;
               print(item);
             });
           },
