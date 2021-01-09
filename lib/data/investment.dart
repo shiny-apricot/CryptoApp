@@ -1,9 +1,11 @@
-class Investment {
+
+class InvestmentDeneme {
+
   double count;
   double initialValue;
   String type;
   String valueType;
 
-  Investment({this.count, this.initialValue, this.type, this.valueType});
+  InvestmentDeneme({this.count, this.initialValue, this.type, this.valueType});
 
 }

@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 
 class ValueRow extends StatelessWidget {
+
+  static var staticInitialValue = '0';
+
+  TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,6 +70,11 @@ class ValueRow extends StatelessWidget {
               color: Color(0xFF002B32),
             ),
             child: TextField(
+              onChanged: (text){
+                ValueRow.staticInitialValue = text;
+              },
+              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+              controller: _controller,
               keyboardType: TextInputType.number,
               maxLength: 20,
               maxLines: 1,

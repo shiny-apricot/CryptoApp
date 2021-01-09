@@ -7,9 +7,9 @@ import 'package:cryptoapp/misc/route_generator.dart';
 
 void main() {
   runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
+    // debugShowCheckedModeBanner: false,
     title: 'CryptoApp',
-    initialRoute: '/login',
+    initialRoute: '/home',
     onGenerateRoute: RouteGenerator.generateRoute,
   ));
 }

@@ -14,7 +14,6 @@ class _AddInvestmentMainState extends State<AddInvestmentMain> {
       return AddInvestmentVertical();
     if(width >= height)
       return AddInvestmentHorizontal();
-
   }
 
   @override

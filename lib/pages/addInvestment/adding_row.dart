@@ -1,14 +1,28 @@
+import 'package:cryptoapp/data/db_helper.dart';
+import 'package:cryptoapp/data/model/Investment.dart';
+import 'package:cryptoapp/pages/addInvestment/count_row.dart';
+import 'package:cryptoapp/pages/addInvestment/selection_row.dart';
+import 'package:cryptoapp/pages/addInvestment/value_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddingRow extends StatefulWidget {
   @override
   _AddingRowState createState() => _AddingRowState();
+
 }
 
 class _AddingRowState extends State<AddingRow> {
 
   double _investmentValue = 0;
+  DBHelper dbhelper;
+  Investment investment;
+
+  // @override
+  // void initState() {
+  //   investment = new Investment(null,null,null);
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +53,15 @@ class _AddingRowState extends State<AddingRow> {
             child: FlatButton(
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               onPressed: (){
+                String initialValue = ValueRow.staticInitialValue;
+                String count = CountRow.staticCount;
+                String selectedCurrency = SelectionRow.staticSelectedCurrency;
+
+                investment = new Investment(null, selectedCurrency, count);
+                print('count= $count initialValue= $initialValue');
+
+                dbhelper.insertInvestment(investment);
+
                 Navigator.of(context).pushNamed('/myInvestment');
               },
               color: Colors.transparent,
@@ -55,7 +78,3 @@ class _AddingRowState extends State<AddingRow> {
     );
   }
 }
-
-// class AddingRow extends StatelessWidget {
-//
-// }

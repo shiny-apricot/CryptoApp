@@ -17,7 +17,9 @@ class CryptoApiService{
 
   WebService ws = WebService();
 
+  //This is used for calling 'attribute'.
   String attributeUrl = "https://api.nomics.com/v1/currencies?key=867f3e9becebffbaba68fa386bcf22bd&";
+  //This is used for calling things other than attribute
   String tickerUrl =    "https://api.nomics.com/v1/currencies/ticker?key=867f3e9becebffbaba68fa386bcf22bd&";
 
   Future<List> getObjects() async{
@@ -108,6 +110,7 @@ class CryptoApiService{
       // print('for i = $i'); //DEBUG PURPOSE
       // print(currency.name); //DEBUG PURPOSE
       objectList.add(currency);
+
     }
 
     return objectList;
