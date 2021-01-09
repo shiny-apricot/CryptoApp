@@ -15,14 +15,14 @@ class AddingRow extends StatefulWidget {
 class _AddingRowState extends State<AddingRow> {
 
   double _investmentValue = 0;
-  DBHelper dbhelper;
+  DBHelper dbhelper = DBHelper();
   Investment investment;
 
-  // @override
-  // void initState() {
-  //   investment = new Investment(null,null,null);
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    // investment = new Investment(null,null,null,null);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +57,13 @@ class _AddingRowState extends State<AddingRow> {
                 String count = CountRow.staticCount;
                 String selectedCurrency = SelectionRow.staticSelectedCurrency;
 
-                investment = new Investment(null, selectedCurrency, count);
+                investment = Investment(null, selectedCurrency, count, initialValue);
                 print('count= $count initialValue= $initialValue');
 
                 dbhelper.insertInvestment(investment);
 
-                Navigator.of(context).pushNamed('/myInvestment');
+                Navigator.of(context).pushNamed('/home');
+                // Navigator.of(context).pop();
               },
               color: Colors.transparent,
               child: Text(

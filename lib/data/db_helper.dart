@@ -15,9 +15,9 @@ class DBHelper{
   String investmentTable = 'investment_table';
 
   String colId = 'id';
-  String colTitle = 'title';
+  String colCurrency = 'currency';
   String colAmount = 'amount';
-
+  String colInitial = 'initial_value';
 
   Future<Database> get database async{
     if(_database == null){
@@ -51,18 +51,20 @@ class DBHelper{
   }
 
   void _createDB(Database database,int newVersion) async{
+
     await database.execute('''
       CREATE TABLE $favoritesTable(
       $colId INTEGER PRIMARY KEY AUTOINCREMENT,
-      $colTitle TEXT NOT NULL
+      $colCurrency TEXT NOT NULL
       )
     ''');
 
     await database.execute('''
       CREATE TABLE $investmentTable(
       $colId INTEGER PRIMARY KEY AUTOINCREMENT,
-      $colTitle TEXT NOT NULL,
-      $colAmount TEXT NOT NULL
+      $colCurrency TEXT NOT NULL,
+      $colAmount TEXT NOT NULL,
+      $colInitial TEXT NOT NULL
       )
     ''');
   }
@@ -78,8 +80,8 @@ class DBHelper{
   // Insert Operation: Insert a Investment object to database
   Future<int> insertInvestment(Investment investment) async {
     Database db = await this.database;
+    print('db initialized');
     var result = await db.insert(investmentTable, investment.toMap());
-
     print("insertInvestment = ${investment.currency}, result= $result");
     return result;
   }
@@ -117,6 +119,7 @@ class DBHelper{
     List<Investment> investmentList = List<Investment>();
     // For loop to create a 'Investment List' from a 'Map List'
     for (int i = 0; i < count; i++) {
+      print('GET INVESTMENT FROM DB = ${investmentMapList[i]}');
       investmentList.add(Investment.fromMapObject(investmentMapList[i]));
     }
 
@@ -139,7 +142,7 @@ class DBHelper{
     Database db = await this.database;
     var result = await db.insert(favoritesTable, favorite.toMap());
 
-    print("insertFavorite = ${favorite.title}, result= $result");
+    print("insertFavorite = ${favorite.currency}, result= $result");
     return result;
   }
 

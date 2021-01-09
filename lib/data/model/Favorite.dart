@@ -3,16 +3,15 @@
 class Favorite{
 
   int _id;
-  String _title;
+  String _currency;
 
-  Favorite(this._id, this._title);
+  Favorite(this._id, this._currency);
 
-  String get title => _title;
+  String get currency => _currency;
 
-  set title(String value) {
-    _title = value;
+  set currency(String value) {
+    _currency = value;
   }
-
 
   int get id => _id;
 
@@ -26,14 +25,14 @@ class Favorite{
 
     if (id != null)
       map['id'] = _id;
-    if(title != null)
-      map['title'] = _title;
+    if(currency != null)
+      map['currency'] = _currency;
     return map;
   }
 
   // Extract a Favorite object from a Map object
   Favorite.fromMapObject(Map<String, dynamic> map) {
     this._id = map['id'];
-    this._title = map['title'];
+    this._currency = map['currency'];
   }
 }

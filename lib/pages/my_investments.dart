@@ -1,13 +1,10 @@
-import 'dart:html';
-
 import 'package:cryptoapp/data/currency.dart';
 import 'package:cryptoapp/data/db_helper.dart';
 import 'package:cryptoapp/data/model/Investment.dart';
 import 'package:cryptoapp/data/services/crypto_api_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cryptoapp/data/investment.dart';
-import 'package:cryptoapp/data/currencyValues.dart';
+import 'package:flutter/painting.dart';
 
 
 class MyInvestments extends StatefulWidget {
@@ -22,54 +19,60 @@ class _MyInvestmentsState extends State<MyInvestments> {
 
   @override
   initState(){
-    super.initState();
-
     print("init state");
-
-    // Investment investment = new Investment(null,'myinvestment','900');
-    // var result;
-    // dbhelper.insertInvestment(investment).then((value)  {
-    //   result=value;
-    //   print("==== RESULT = $result");
-    //   dbhelper.getCount().then((value) => print(value));
-    // }
-    // );
+    super.initState();
   }
 
-  Widget profitCalculator(Investment investment){
+  Future<Widget> profitCalculator(Investment investment) async{
+    print('PROFIT CALCULATOR');
     double profit;
 
-    // if(investment.type == 'BTC')
-    //   profit = (CurrencyValues.BTC - investment.initialValue)*investment.count;
-    // else if(investment.type == 'TRY')
-    //   profit = (CurrencyValues.TRY - investment.initialValue)*investment.count;
-    // else if(investment.type == 'ETH')
-    //   profit = (CurrencyValues.ETH - investment.initialValue)*investment.count;
+    var currency = investment.currency;
+    apiService = CryptoApiService(ids: '$currency');
 
-    if(profit >= 0)
+    var currencyList = await apiService.getObjects();
+
+    Currency currentCurrency = currencyList[0];
+    String currentCurrencyValueString = currentCurrency.price;
+    double currentCurrencyValue = double.parse(currentCurrencyValueString);
+
+    var oldCurrencyValueString = investment.initialCurrencyValue;
+    double oldCurrencyValue = double.parse(oldCurrencyValueString);
+
+    var amount = double.parse(investment.amount);
+    print('AMOUNT = $amount');
+    profit = (currentCurrencyValue*amount) - (oldCurrencyValue*amount);
+    print('PROFIT = $profit');
+
+    if(profit >= 0) {
+      print('profit plus');
       return Text(
         '+${profit}',
         style: TextStyle(
-          color: Colors.green,
-          fontSize: 17
-       ),
+            color: Colors.green,
+            fontSize: 17
+        ),
       );
-    else
+    }
+    else {
+      print('profit minus');
       return Text('${profit}',
         style: TextStyle(
             color: Colors.redAccent,
             fontSize: 17
         ),
       );
+    }
   }
 
-
   Future<List> getInvestList() async{
+    print('GET INVEST LIST');
     List list = await dbhelper.getInvestmentList();
     return list;
   }
 
   Future<double> valueCalculator(Investment investment) async{
+    print('VALUE CALCULATOR');
     var currency = investment.currency;
 
     apiService = CryptoApiService(ids: currency);
@@ -98,13 +101,15 @@ class _MyInvestmentsState extends State<MyInvestments> {
               child: FutureBuilder(
                 future: getInvestList(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  List data = snapshot.data;
                   if(snapshot.connectionState == ConnectionState.waiting){
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   }
                   else if (snapshot.connectionState == ConnectionState.done) {
                     if(snapshot.hasError)
-                      return Text("error");
-                    else {
+                      return Center(child: Text("error"));
+                    else if(data.length > 0){
+                      List snapshotInvestments = snapshot.data;
                       return ListView.builder(
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
@@ -145,7 +150,19 @@ class _MyInvestmentsState extends State<MyInvestments> {
                                   ),
                                 ),
                               ),
-                              subtitle: profitCalculator(inv),
+                              subtitle: FutureBuilder(
+                                future: profitCalculator(inv),
+                                builder: (BuildContext context, AsyncSnapshot snapshot){
+                                  if(snapshot.connectionState == ConnectionState.waiting)
+                                    return Text('Waiting...');
+                                  else {
+                                    if (snapshot.hasError)
+                                      return Text('ERROR');
+                                    else
+                                      return snapshot.data;
+                                  }
+                                },
+                              ),
                               children: [
                                 Text('Initial Value:',
                                   style: TextStyle(
@@ -174,10 +191,37 @@ class _MyInvestmentsState extends State<MyInvestments> {
                                     color: Colors.amber,
                                   ),
                                 ),
+                                FlatButton(
+                                  onPressed: (){
+                                    Investment investment = snapshotInvestments[index];
+                                    dbhelper.deleteInvestment(investment.id);
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.redAccent,
+                                        borderRadius: BorderRadius.circular(5)
+                                      ),
+                                      child: Text('DELETE')
+                                  ),
+                                )
                               ],
                             ),
                           );
                         },
+                      );
+                    }
+                    else{
+                      print('EMPTY!!!');
+                        return Center(
+                          child: Text(
+                              "YOU DID'T INVEST ANYTHING! \nWHAT DO YOU EXPECT TO SEE???",
+                          style: TextStyle(
+                            color: Colors.grey[200],
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold
+                          ),
+                          )
                       );
                     }
                   }
@@ -199,6 +243,5 @@ class _MyInvestmentsState extends State<MyInvestments> {
       ),
     );
   }
-
 
 }

@@ -31,7 +31,7 @@ class CryptoApiService{
       print('attributes = $attributes');
       sb.write("${attributeUrl}attributes=$attributes");
       if(ids != null)
-        sb.write("&ids=$ids");
+        sb.write("ids=$ids");
 
       print('WEB SERVICE CALLED WITH URL= ${sb.toString()}');
       return await ws.getData(sb.toString());

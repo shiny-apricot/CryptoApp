@@ -1,5 +1,7 @@
 import 'package:cryptoapp/data/currency.dart';
 import 'package:cryptoapp/data/currencyValues.dart';
+import 'package:cryptoapp/data/db_helper.dart';
+import 'package:cryptoapp/data/model/Favorite.dart';
 import 'package:cryptoapp/data/services/crypto_api_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,10 @@ class _HomeState extends State<Home> {
   bool isSvg = false;
   bool isLoading = true;
 
+  DBHelper dbhelper = DBHelper();
+
+  List values = List();
+
   @override
   void initState() {
     super.initState();
@@ -41,34 +47,26 @@ class _HomeState extends State<Home> {
     print(sb.toString());
     cas = new CryptoApiService(ids: sb.toString() );
 
-    // List result = cv.search(searchedString.text);
-
-    // for(int i=0; i<20; i++){
-    //
-    //   var data = cas.getObjects();
-    //   objects.add(data);
-    // }
-
   }
-  //YUSUF ARAMA KOMUTU BURADA ISTEDIGINI ARIYON BU KOMUTLA BUNU ISTEDIGIN YERDE KULLAN
 
-  // CurrencyValues cv = new CurrencyValues();
-  // cv.search('bt');
-
-  //SANA BI ID LISTESI DONDURUYO BU ID'LERLE API DAN ARAMA YAPACAN
-
-  // Widget getBody(int count, ){
-  //   return ListView.separated(
-  //       itemCount: count,
-  //       separatorBuilder:(context,index) => Divider(
-  //         thickness: 0.0,
-  //         height: 0.0,
-  //       ),
-  //       itemBuilder: (context,index){
-  //
-  //       });
-  // }
-
+    Future<Widget> iconDetermine(int index) async{
+    List favoritesList = await dbhelper.getFavoritesList();
+    Currency value = values[index];
+    String id = value.id;
+    for(Favorite element in favoritesList){
+      if(element.currency == id)
+        return Icon(
+          Icons.favorite_outlined,
+          color: Colors.redAccent,
+          size: 33,
+        );
+    }
+    return Icon(
+      Icons.favorite_border,
+      color: Colors.redAccent,
+      size: 33,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +125,6 @@ class _HomeState extends State<Home> {
                             var searchResult = cv.search(text);
                             StringBuffer sb = StringBuffer();
                             int count =0;
-                            print('CHECKPOINT 4');
                             for(int i=0; i<searchResult.length; i++)
                             {
                               if(count < 20) {
@@ -140,7 +137,6 @@ class _HomeState extends State<Home> {
                             }
                             print(sb.toString());
                             cas = new CryptoApiService(ids: sb.toString());
-                            print('CHECKPOINT 1');
                             setState(() {});
                           },
                         ),
@@ -158,7 +154,6 @@ class _HomeState extends State<Home> {
                         future: cas.getObjects(),
                         builder: (context, snapshot)
                         {
-                          print('CHECKPOINT 2');
                           List cryptoList = snapshot.data;
                           int length;
                           if(cryptoList != null) {
@@ -168,6 +163,7 @@ class _HomeState extends State<Home> {
 
                           if(snapshot.connectionState == ConnectionState.done)
                           {
+                            values = snapshot.data;
                             return ListView.separated(
                                     itemCount: length,
                                     itemBuilder: (context,index){
@@ -205,11 +201,28 @@ class _HomeState extends State<Home> {
                                               ),
                                             ),
                                           ),
-                                          trailing: Icon(
-                                              Icons.favorite_border,
-                                            color: Colors.redAccent,
-                                            size: 33,
-                                          )
+                                          trailing: FlatButton(
+                                                        onPressed: (){
+                                                          print('BUTTON CLICKED');
+                                                          Currency currency = values[index];
+                                                          Favorite favorite = Favorite(null,currency.id);
+                                                          dbhelper.insertFavorite(favorite);
+                                                          setState(() {});
+                                                        },
+                                                        child: FutureBuilder(
+                                                          future: iconDetermine(index),
+                                                          builder: (context, snapshot){
+                                                            if(snapshot.hasData)
+                                                              return snapshot.data;
+                                                            else
+                                                              return Icon(
+                                                                Icons.favorite_border,
+                                                                color: Colors.redAccent,
+                                                                size: 33,
+                                                              );
+                                                          },
+                                                        ),
+                                                      )
                                         ),
                                       );
                                     },
@@ -219,7 +232,7 @@ class _HomeState extends State<Home> {
                                         height: 2,
                                       );
                               }
-                                    );
+                              );
                           }
                           if(snapshot.hasError){
                             return Container(
@@ -301,5 +314,81 @@ class _HomeState extends State<Home> {
       }
     }
   }
+
 }
+
+
+// class IconState extends StatefulWidget {
+//
+//   final List values;
+//   final int index;
+//
+//   IconState({
+//     Key key,
+//     @required this.values,
+//     @required this.index
+//   }) : super(key: key);
+//
+//   @override
+//   _IconStateState createState() => _IconStateState(values: null,index: null);
+// }
+//
+// class _IconStateState extends State<IconState> {
+//
+//   DBHelper dbhelper;
+//
+//   List values;
+//   int index;
+//
+//   _IconStateState({
+//     @required this.values,
+//     @required this.index
+//   });
+//
+//   Future<Widget> iconDetermine(int index) async{
+//     List favoritesList = await dbhelper.getFavoritesList();
+//     Currency value = values[index];
+//     String id = value.id;
+//     for(Favorite element in favoritesList){
+//       if(element.currency == id)
+//         return Icon(
+//           Icons.favorite_outlined,
+//           color: Colors.redAccent,
+//           size: 33,
+//         );
+//     }
+//     return Icon(
+//       Icons.favorite_border,
+//       color: Colors.redAccent,
+//       size: 33,
+//     );
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return FlatButton(
+//       onPressed: (){
+//         print('BUTTON CLICKED');
+//         Currency currency = values[index];
+//         Favorite favorite = Favorite(null,currency.id);
+//         dbhelper.insertFavorite(favorite);
+//         setState(() {});
+//       },
+//       child: FutureBuilder(
+//         future: iconDetermine(index),
+//         builder: (context, snapshot){
+//           if(snapshot.hasData)
+//             return snapshot.data;
+//           else
+//             return Icon(
+//               Icons.favorite_border,
+//               color: Colors.redAccent,
+//               size: 33,
+//             );
+//         },
+//       ),
+//     );
+//   }
+// }
+
 
