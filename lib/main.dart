@@ -1,15 +1,22 @@
 import 'package:cryptoapp/pages/main_page.dart';
 import 'package:cryptoapp/pages/my_investments.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoapp/pages/favorites.dart';
 import 'package:cryptoapp/custom/customAppBar.dart';
 import 'package:cryptoapp/misc/route_generator.dart';
 
-void main() {
+
+
+
+Future  <void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MaterialApp(
     // debugShowCheckedModeBanner: false,
     title: 'CryptoApp',
-    initialRoute: '/home',
+    initialRoute: '/login',
     onGenerateRoute: RouteGenerator.generateRoute,
   ));
 }

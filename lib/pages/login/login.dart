@@ -2,6 +2,7 @@ import 'package:cryptoapp/pages/login/login_horizontal.dart';
 import 'package:cryptoapp/pages/login/login_vertical.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cryptoapp/pages/login/Register.dart';
 
 class Login extends StatefulWidget {
 
@@ -12,8 +13,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   bool checkValue = false;
-
-
 
   Widget mediaQuery({double width, double height}){
     if(width > height)

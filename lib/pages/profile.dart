@@ -91,6 +91,26 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
+                Container(
+                  height: 50,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.fromLTRB(150, 20, 150, 0),
+                  decoration: new BoxDecoration(
+                    color: Color(0xFFE19600),
+                    borderRadius: new BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: FlatButton(
+                    child: Text('LOG OUT',
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: (){
+                      Navigator.of(context).pushNamed('/login');
+                    },
+                  ),
+                )
               ],
 
 
