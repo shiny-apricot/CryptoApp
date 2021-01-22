@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cryptoapp/data/currency.dart';
 import 'package:cryptoapp/data/db_helper.dart';
 import 'package:cryptoapp/data/model/Favorite.dart';
@@ -56,11 +57,19 @@ class _FavoritesState extends State<Favorites> {
                                     return Card(
                                       color: Color(0xFF003942),
                                       child: ListTile(
+                                        onTap: (){
+                                          Favorite favorite = favoritesData[index];
+                                          dbhelper.deleteFavorite(favorite.id).then(
+                                                  (value) => setState(() {})
+                                          );
+                                          deleteFavorites(favorite.id);
+                                        },
                                         leading: Icon(FontAwesomeIcons.coins,
                                           color: Colors.orange,
                                         ),
                                         trailing: Icon(
-                                          FontAwesomeIcons.solidHeart,
+                                          Icons.favorite_outlined,
+                                          color: Colors.redAccent,
                                         ),
                                         title: Text(
                                           '${currencyElement.name}              ${currencyElement.price}',
@@ -94,13 +103,6 @@ class _FavoritesState extends State<Favorites> {
                   }
               }
               ),
-
-
-
-
-
-
-
             ),
           ),
           Container(
@@ -113,5 +115,11 @@ class _FavoritesState extends State<Favorites> {
         ],
       ),
     );
+  }
+
+  Future<void> deleteFavorites(int id) async{
+    print('delete $id');
+    DocumentReference investments = FirebaseFirestore.instance.collection('favorites').doc('$id');
+    investments.delete();
   }
 }

@@ -102,6 +102,11 @@ class DBHelper{
     return result;
   }
 
+  Future<void> deleteAllInvestment() async{
+    var db = await this.database;
+    await db.delete(investmentTable);
+  }
+
   // Get number of Investment objects in database
   Future<int> getCount() async {
     Database db = await this.database;

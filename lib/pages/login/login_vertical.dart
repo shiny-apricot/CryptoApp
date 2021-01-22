@@ -1,5 +1,9 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cryptoapp/data/currencyValues.dart';
+import 'package:cryptoapp/data/db_helper.dart';
+import 'package:cryptoapp/data/model/Favorite.dart';
+import 'package:cryptoapp/data/model/Investment.dart';
 import 'package:cryptoapp/data/services/crypto_api_service.dart';
 import 'package:cryptoapp/pages/login/Register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,29 +22,14 @@ class _LoginVerticalState extends State<LoginVertical> {
   void initState(){
     super.initState();
     getSharedPrefences();
-    //YUSUF ARAMA KOMUTU BURADA ISTEDIGINI ARIYON BU KOMUTLA BUNU ISTEDIGIN YERDE KULLAN
-
-    // CurrencyValues cv = new CurrencyValues();
-    // List result = cv.search('');
-    //     // List objects = List();
-    //     // count = 0;
-    //     // for(i) {
-    //     //   if(count < 20) {
-    //     //     CryptoApiService cap = CryptoApiService(ids: result[i]);
-    //     //     var data = cap.getObjects();
-    //     //     objects.add(data);
-    //     //   }
-    //     //   count++;
-    // }
-    //SANA BI ID LISTESI DONDURUYO BU ID'LERLE API DAN ARAMA YAPACAN
   }
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController= TextEditingController();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool checkValue = false;
-
 
 
   @override
@@ -161,7 +150,8 @@ class _LoginVerticalState extends State<LoginVertical> {
                         borderRadius: new BorderRadius.all(Radius.circular(10)),
                       ),
                       child: FlatButton(
-                        minWidth: 50,
+                        minWidth: 280,
+                        height: 50,
                         child: Text('LOG IN',
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
@@ -174,10 +164,6 @@ class _LoginVerticalState extends State<LoginVertical> {
                               setSharedPreferences(checkValue, _emailController.text, _passwordController.text);
                             _login();
                           }
-
-
-                          // CryptoApiService cas = new CryptoApiService();
-                          // cas.getNames();
                         },
                       ),
                     ),
@@ -231,11 +217,40 @@ class _LoginVerticalState extends State<LoginVertical> {
       }
       Navigator.of(context).pushNamed('/home');
       _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Logged in successfully")));
+      getDataFromFirebaseAndInsertToDatabase();
+      getInvestmentsAndInsertDatabase();
+
     } catch (e){
-      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Failed to Login")));
+      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Failed to Login e= $e")));
     }
   }
-  getSharedPrefences()async{
+
+  void getDataFromFirebaseAndInsertToDatabase() async{
+    DBHelper dbhelper = DBHelper();
+    await Firebase.initializeApp();
+
+    List favorites = await getFavorites();
+
+    List favoritesListInDatabase = await dbhelper.getFavoritesList();
+    List favoritesCurrencyList = List();
+
+    for(Favorite favorite in favoritesListInDatabase){
+      favoritesCurrencyList.add(favorite.currency);
+    }
+
+    for(String element in favorites)
+    {
+      print('element = '+element);
+      if(!favoritesCurrencyList.contains(element)) {
+        Favorite newFavorite = Favorite(null, element);
+        print('$element is not in the database...');
+        await dbhelper.insertFavorite(newFavorite);
+      }
+    }
+  }
+
+
+  getSharedPrefences() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState((){
       checkValue= preferences.getBool("Bool")?? false;
@@ -243,11 +258,60 @@ class _LoginVerticalState extends State<LoginVertical> {
       _passwordController.text = preferences.getString("String2")??"";
     });
   }
-  setSharedPreferences(bool checkbox,String email,String password)async{
+
+  setSharedPreferences(bool checkbox,String email,String password) async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString("String", email);
     await preferences.setString("String2", password);
     await preferences.setBool("Bool", checkbox);
   }
+
+  Future<List<String>> getFavorites() async {
+    CollectionReference favorites = FirebaseFirestore.instance.collection('favorites');
+
+    List<String> favoritesList = List<String>();
+
+    var snapshot = await favorites.get();
+    print('');
+    print('## SNAPSHOT HAS TAKEN ##');
+    print('');
+    snapshot.docs.forEach((element) {
+      String name = element['id'];
+      print('$name');
+      favoritesList.add(name);
+    });
+    print('');
+    print('## RETURN GAMELIST ##');
+    print('');
+    return favoritesList;
+  }
+
+  Future<void> getInvestmentsAndInsertDatabase() async {
+    DBHelper dbhelper = DBHelper();
+    CollectionReference investmentCollection = FirebaseFirestore.instance.collection('investments');
+
+    var snapshot = await investmentCollection.get();
+    print('');
+    print('## SNAPSHOT HAS TAKEN ##');
+    print('');
+
+    dbhelper.deleteAllInvestment();
+    print('ALL INVESTMENTS IN DATABASE DELETED');
+
+    snapshot.docs.forEach((element) {
+      String count = element['count'];
+      String currency = element['currency'];
+      String initial=  element['initial_value'];
+      print('$count $currency $initial');
+
+      Investment investment = Investment(null, currency, count, initial);
+      dbhelper.insertInvestment(investment);
+    });
+
+  }
+
 }
+
+
+
 

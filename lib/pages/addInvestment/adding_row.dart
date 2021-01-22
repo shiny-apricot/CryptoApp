@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cryptoapp/data/db_helper.dart';
 import 'package:cryptoapp/data/model/Investment.dart';
 import 'package:cryptoapp/pages/addInvestment/count_row.dart';
@@ -60,10 +61,17 @@ class _AddingRowState extends State<AddingRow> {
                 investment = Investment(null, selectedCurrency, count, initialValue);
                 print('count= $count initialValue= $initialValue');
 
-                dbhelper.insertInvestment(investment);
+                dbhelper.insertInvestment(investment).then((id) {
+                  FirebaseInvestment firebase = FirebaseInvestment();
+                  firebase.addInvestment(
+                      id,
+                      count,
+                      selectedCurrency,
+                      initialValue
+                  );
 
-                Navigator.of(context).pushNamed('/home');
-                // Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed('/home');
+                });
               },
               color: Colors.transparent,
               child: Text(
@@ -79,3 +87,25 @@ class _AddingRowState extends State<AddingRow> {
     );
   }
 }
+
+class FirebaseInvestment {
+
+  Future<void> addInvestment(int id,String investmentCount, String investmentCurrency, String investmentInitialValue){
+
+    DocumentReference investments = FirebaseFirestore.instance.collection('investments').doc("$id");
+    var data = {
+        'id': id,
+        'currency':investmentCurrency,
+        'count': investmentCount,
+        'initial_value':investmentInitialValue
+    };
+    return investments.set(data).then((value) {
+      print('%%%%%% $investmentCount added to FireStore... %%%%%%');
+    });
+
+  }
+
+
+}
+
+
