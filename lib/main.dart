@@ -14,7 +14,7 @@ Future  <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
-    // debugShowCheckedModeBanner: false,
+    debugShowCheckedModeBanner: false,
     title: 'CryptoApp',
     initialRoute: '/login',
     onGenerateRoute: RouteGenerator.generateRoute,
@@ -58,7 +58,7 @@ class _MainState extends State<Main> {
           size: 30.0,
         ),
         onPressed: () {
-          Navigator.of(context).pushNamed('/addInvestment');
+          Navigator.of(context).pushNamed('/addInvestment').then((value) {setState(() {});});
         },
       )
     ];

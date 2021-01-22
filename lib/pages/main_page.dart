@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cryptoapp/data/currency.dart';
 import 'package:cryptoapp/data/currencyValues.dart';
 import 'package:cryptoapp/data/db_helper.dart';
@@ -46,7 +47,6 @@ class _HomeState extends State<Home> {
     }
     print(sb.toString());
     cas = new CryptoApiService(ids: sb.toString() );
-
   }
 
     Future<Widget> iconDetermine(int index) async{
@@ -201,13 +201,16 @@ class _HomeState extends State<Home> {
                                               ),
                                             ),
                                           ),
-                                          trailing: FlatButton(
+                                          trailing: FlatButton( ///////////////////////////////////////////////
                                                         onPressed: (){
                                                           print('BUTTON CLICKED');
                                                           Currency currency = values[index];
                                                           Favorite favorite = Favorite(null,currency.id);
-                                                          dbhelper.insertFavorite(favorite);
-                                                          setState(() {});
+                                                          dbhelper.insertFavorite(favorite).then((id) {
+                                                            addFavorite(favorite, id);
+                                                            setState(() {});
+                                                          });
+
                                                         },
                                                         child: FutureBuilder(
                                                           future: iconDetermine(index),
@@ -315,7 +318,19 @@ class _HomeState extends State<Home> {
     }
   }
 
+  Future<void> addFavorite(Favorite favorite, int id){
+
+    DocumentReference favoriteCollection = FirebaseFirestore.instance.collection('favorites').doc("${id}");
+
+    var data = {'currency': favorite.currency};
+
+    return favoriteCollection.set(data).then((value) {
+      print('%%%%%% ${favorite.id} added to FireStore... %%%%%%');
+    });
+  }
+
 }
+
 
 
 // class IconState extends StatefulWidget {

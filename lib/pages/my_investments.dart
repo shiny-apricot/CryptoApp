@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cryptoapp/data/currency.dart';
 import 'package:cryptoapp/data/db_helper.dart';
 import 'package:cryptoapp/data/model/Investment.dart';
@@ -191,15 +192,20 @@ class _MyInvestmentsState extends State<MyInvestments> {
                                     color: Colors.amber,
                                   ),
                                 ),
+                                SizedBox(height: 15),
                                 FlatButton(
                                   onPressed: (){
                                     Investment investment = snapshotInvestments[index];
                                     dbhelper.deleteInvestment(investment.id);
+                                    deleteInvestment(investment.id);
                                     setState(() {});
                                   },
                                   child: Container(
+                                    alignment: Alignment.center,
+                                    width: 100,
+                                      height: 30,
                                       decoration: BoxDecoration(
-                                        color: Colors.redAccent,
+                                        color: Colors.red,
                                         borderRadius: BorderRadius.circular(5)
                                       ),
                                       child: Text('DELETE')
@@ -215,7 +221,7 @@ class _MyInvestmentsState extends State<MyInvestments> {
                       print('EMPTY!!!');
                         return Center(
                           child: Text(
-                              "YOU DID'T INVEST ANYTHING! \nWHAT DO YOU EXPECT TO SEE???",
+                              "YOU DIDN'T INVEST ANYTHING! \nWHAT DO YOU EXPECT TO SEE???",
                           style: TextStyle(
                             color: Colors.grey[200],
                             fontSize: 18,
@@ -244,4 +250,10 @@ class _MyInvestmentsState extends State<MyInvestments> {
     );
   }
 
+  Future<void> deleteInvestment(int id) async{
+    print('delete $id');
+    DocumentReference investments = FirebaseFirestore.instance.collection('investments').doc('$id');
+    investments.delete();
+  }
 }
+

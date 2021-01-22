@@ -147,7 +147,9 @@ class _signupState extends State<signup> {
       }
       await user.updateProfile(displayName: _nameController.text);
       final user1 = _auth.currentUser;
-      Navigator.of(context).pushNamed('/login');
+      Navigator.of(context).pushNamed('/login').then((value) {
+        setState(() {});
+      });
     }}
     catch(e){
       _scaffoldKey2.currentState.showSnackBar(SnackBar(content: Text("Failed to register")));
