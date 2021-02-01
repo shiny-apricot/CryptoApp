@@ -2,7 +2,6 @@ import 'package:cryptoapp/pages/login/login_horizontal.dart';
 import 'package:cryptoapp/pages/login/login_vertical.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cryptoapp/pages/login/Register.dart';
 
 class Login extends StatefulWidget {
 
