@@ -89,26 +89,26 @@ class CryptoApiService{
     print('==> WEB SERVICE CALLED WITH URL ==> ${sb.toString()}');
     List responseList = await ws.getData(sb.toString());
     int length = responseList.length;
-    print('length = $length');
+    print('length of api = $length');
 
     List objectList = List();
 
-    for(int i=0; i<length; i++){
 
+    for(int i=0; i<length; i++){
       String id = responseList[i]['id'];
-      // print(id); //DEBUG PURPOSE
+      print(id); //DEBUG PURPOSE
       String price = responseList[i]['price'];
-      // print(price); //DEBUG PURPOSE
+      print(price); //DEBUG PURPOSE
       String rank = responseList[i]['rank'];
-      // print(rank); //DEBUG PURPOSE
+      print(rank); //DEBUG PURPOSE
       String name = responseList[i]['name'];
-      // print(name); //DEBUG PURPOSE
+      print(name); //DEBUG PURPOSE
       String logoUrl = responseList[i]['logo_url'];
-      // print(logoUrl); //DEBUG PURPOSE
+      print(logoUrl); //DEBUG PURPOSE
 
       Currency currency = Currency(id=id,name=name,price=price,rank=rank,logoUrl=logoUrl);
-      // print('for i = $i'); //DEBUG PURPOSE
-      // print(currency.name); //DEBUG PURPOSE
+      print('for i = $i'); //DEBUG PURPOSE
+      print(currency.name); //DEBUG PURPOSE
       objectList.add(currency);
 
     }

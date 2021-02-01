@@ -17,6 +17,7 @@ class _MyInvestmentsState extends State<MyInvestments> {
 
   DBHelper dbhelper = DBHelper();
   CryptoApiService apiService;
+  double currentCurrencyValue;
 
   @override
   initState(){
@@ -24,18 +25,23 @@ class _MyInvestmentsState extends State<MyInvestments> {
     super.initState();
   }
 
-  Future<Widget> profitCalculator(Investment investment) async{
-    print('PROFIT CALCULATOR');
-    double profit;
-
-    var currency = investment.currency;
+  Future<double> getCurrentCurrencyValue(Investment inv) async{
+    var currency = inv.currency;
     apiService = CryptoApiService(ids: '$currency');
 
     var currencyList = await apiService.getObjects();
 
     Currency currentCurrency = currencyList[0];
     String currentCurrencyValueString = currentCurrency.price;
-    double currentCurrencyValue = double.parse(currentCurrencyValueString);
+    currentCurrencyValue = double.parse(currentCurrencyValueString);
+
+  }
+
+  Future<Widget> profitCalculator(Investment investment) async{
+    print('PROFIT CALCULATOR');
+    double profit;
+
+    await getCurrentCurrencyValue(investment);
 
     var oldCurrencyValueString = investment.initialCurrencyValue;
     double oldCurrencyValue = double.parse(oldCurrencyValueString);
@@ -48,7 +54,7 @@ class _MyInvestmentsState extends State<MyInvestments> {
     if(profit >= 0) {
       print('profit plus');
       return Text(
-        '+${profit}',
+        '+$profit',
         style: TextStyle(
             color: Colors.green,
             fontSize: 17
@@ -57,7 +63,7 @@ class _MyInvestmentsState extends State<MyInvestments> {
     }
     else {
       print('profit minus');
-      return Text('${profit}',
+      return Text('$profit',
         style: TextStyle(
             color: Colors.redAccent,
             fontSize: 17
@@ -186,13 +192,13 @@ class _MyInvestmentsState extends State<MyInvestments> {
                                     fontSize: 18.0,
                                   ),
                                 ),
-                                Text('\$${valueCalculator(inv)}',
+                                Text(
+                                  "\$$currentCurrencyValue",
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     color: Colors.amber,
                                   ),
                                 ),
-                                SizedBox(height: 15),
                                 FlatButton(
                                   onPressed: (){
                                     Investment investment = snapshotInvestments[index];
@@ -249,6 +255,7 @@ class _MyInvestmentsState extends State<MyInvestments> {
       ),
     );
   }
+
 
   Future<void> deleteInvestment(int id) async{
     print('delete $id');

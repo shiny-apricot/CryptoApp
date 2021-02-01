@@ -1,15 +1,78 @@
-import 'dart:io';
+
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cryptoapp/data/currencyValues.dart';
+import 'package:connectivity/connectivity.dart';
+import 'package:cryptoapp/data/currency.dart';
 import 'package:cryptoapp/data/db_helper.dart';
 import 'package:cryptoapp/data/model/Favorite.dart';
 import 'package:cryptoapp/data/model/Investment.dart';
 import 'package:cryptoapp/data/services/crypto_api_service.dart';
-import 'package:cryptoapp/pages/login/Register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:workmanager/workmanager.dart';
+
+void callbackDispatcher() {
+
+  Workmanager.executeTask((taskName, inputData) async {
+    List favoriteList = inputData["favorites"];
+
+    String description = "";
+
+    CryptoApiService apiService = CryptoApiService();
+
+    print('favorites length = ${favoriteList.length}');
+
+    for(String currency in favoriteList)
+    {
+      apiService = CryptoApiService(ids: "$currency");
+      List list = await apiService.getObjects();
+      String price = list[0].price;
+
+      print('SERVICE PRICE = $price');
+      print('SERVICE CURRENCY = $currency');
+
+      description += "$currency = $price";
+    }
+
+    var androidInitialize = new AndroidInitializationSettings('flutter_devs');
+    var iOsInitialize = new IOSInitializationSettings();
+
+    var initializationSettings = new InitializationSettings(
+        android: androidInitialize, iOS: iOsInitialize);
+
+    FlutterLocalNotificationsPlugin fln = FlutterLocalNotificationsPlugin();
+    fln.initialize(initializationSettings);
+    var android = AndroidNotificationDetails(
+        'id',
+        'name',
+        'description',
+        icon: 'flutter_devs',
+        priority: Priority.high,
+        importance: Importance.max,
+        playSound: true
+    );
+
+    var iOs = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        android: android,
+        iOS: iOs,
+        macOS: null
+    );
+
+    if(favoriteList.length != 0) {
+      fln.show(44, 'DAILY CRYPTO', description, platformChannelSpecifics);
+      print('NOTIFICATION');
+      print('list length of notif = ${favoriteList.length}');
+    }
+      print(description);
+
+    return Future.value(true);
+  });
+}
+
 
 
 class LoginVertical extends StatefulWidget {
@@ -18,11 +81,10 @@ class LoginVertical extends StatefulWidget {
 }
 
 class _LoginVerticalState extends State<LoginVertical> {
-  @override
-  void initState(){
-    super.initState();
-    getSharedPrefences();
-  }
+
+  String _connectionStatus = 'Unknown';
+  final Connectivity _connectivity = Connectivity();
+  StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
@@ -30,6 +92,50 @@ class _LoginVerticalState extends State<LoginVertical> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool checkValue = false;
+
+  @override
+  void initState(){
+    super.initState();
+    initConnectivity();
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    getSharedPrefences();
+  }
+
+
+
+  Future<void> initConnectivity() async {
+    ConnectivityResult result = ConnectivityResult.none;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await _connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return Future.value(null);
+    }
+
+    return _updateConnectionStatus(result);
+  }
+
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    switch (result) {
+      case ConnectivityResult.wifi:
+      case ConnectivityResult.mobile:
+      case ConnectivityResult.none:
+        setState(() => _connectionStatus = result.toString());
+
+        break;
+      default:
+        setState(() => _connectionStatus = 'Failed to get connectivity.');
+        break;
+    }
+  }
 
 
   @override
@@ -208,6 +314,7 @@ class _LoginVerticalState extends State<LoginVertical> {
       ),
     ) );
   }
+
   void _login() async{
     try{
       final User user = (
@@ -216,18 +323,30 @@ class _LoginVerticalState extends State<LoginVertical> {
       await user.sendEmailVerification();
       }
       Navigator.of(context).pushNamed('/home');
-      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Logged in successfully")));
+      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Logged in successfully.")));
       getDataFromFirebaseAndInsertToDatabase();
       getInvestmentsAndInsertDatabase();
 
     } catch (e){
-      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Failed to Login e= $e")));
+      print("ERRRRORRRRRRRRRR = $e");
+      print('COnnectionString = ${_connectionStatus}');
+      if(_connectionStatus == "ConnectivityResult.none") {
+        _scaffoldKey.currentState.showSnackBar(
+            SnackBar(content: Text("CONNECTION = $_connectionStatus")));
+            setState(() {});
+      }
+      else{
+        _scaffoldKey.currentState.showSnackBar(
+            SnackBar(content: Text("Error= ${e.toString()}")));
+      }
+      setState(() {
+
+      });
     }
   }
 
   void getDataFromFirebaseAndInsertToDatabase() async{
     DBHelper dbhelper = DBHelper();
-    await Firebase.initializeApp();
 
     List favorites = await getFavorites();
 
@@ -276,7 +395,7 @@ class _LoginVerticalState extends State<LoginVertical> {
     print('## SNAPSHOT HAS TAKEN ##');
     print('');
     snapshot.docs.forEach((element) {
-      String name = element['id'];
+      String name = element['currency'];
       print('$name');
       favoritesList.add(name);
     });
@@ -309,6 +428,8 @@ class _LoginVerticalState extends State<LoginVertical> {
     });
 
   }
+
+
 
 }
 
