@@ -141,12 +141,13 @@ class _LoginVerticalState extends State<LoginVertical> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         body:Container(
-      alignment: Alignment.center,
-      color: Color(0xFF003942),
-      child:Column(
-        children: <Widget>[
+          alignment: Alignment.center,
+          color: Color(0xFF003942),
+          child:Column(
+          children: <Widget>[
           Expanded(
             flex: 5,
             child: Container(
@@ -247,8 +248,11 @@ class _LoginVerticalState extends State<LoginVertical> {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height:50,
+                    ),
                     Container(
-                      height: 50,
+                      height: 40,
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(top: 20),
                       decoration: new BoxDecoration(
@@ -256,8 +260,8 @@ class _LoginVerticalState extends State<LoginVertical> {
                         borderRadius: new BorderRadius.all(Radius.circular(10)),
                       ),
                       child: FlatButton(
-                        minWidth: 280,
-                        height: 50,
+                        minWidth:100,
+                        height: 40,
                         child: Text('LOG IN',
                           style: TextStyle(
                             fontWeight: FontWeight.normal,

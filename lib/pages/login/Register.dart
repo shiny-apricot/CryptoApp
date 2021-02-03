@@ -19,6 +19,7 @@ class _signupState extends State<signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: _scaffoldKey2,
       backgroundColor: Color(0xFF003942),
       appBar: AppBar(
@@ -32,35 +33,47 @@ class _signupState extends State<signup> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children:<Widget> [
-              Container(
-                  height: 60,
-                  padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  decoration: new BoxDecoration(
-                    color: Color(0x60FFFFFF),
-                    borderRadius: new BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child:TextFormField(
-                    controller: _nameController,
-                    validator: (String val){
-                      if(val.isEmpty){
-                        return "Please enter a name";
-                      }
-                      return null;
-                    },
-                    obscureText: false,
-                    decoration:  InputDecoration(
-                      hintText: "Full Name",
-                      hintStyle: TextStyle(
-                          color: Colors.white
-                      ),
-
+            Expanded(
+              flex:2,
+              child: Container(),
+            ),
+              Expanded(
+                child: Container(
+                    height: 7,
+                    padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                    margin: EdgeInsets.fromLTRB(20, 0, 15, 0),
+                    decoration: new BoxDecoration(
+                      color: Color(0x60FFFFFF),
+                      borderRadius: new BorderRadius.all(Radius.circular(10)),
                     ),
-                  ) ),
-              Container(
-                  height: 60,
-                  padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                  margin: EdgeInsets.all(20),
+                    child:TextFormField(
+                      controller: _nameController,
+                      validator: (String val){
+                        if(val.isEmpty){
+                          return "Please enter a name";
+                        }
+                        return null;
+                      },
+                      obscureText: false,
+                      decoration:  InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Full Name",
+                        hintStyle: TextStyle(
+                          color: Colors.white60,
+                        ),
+
+                      ),
+                    ) ),
+              ),
+              SizedBox(
+                height: 17,
+              ),
+              Expanded(
+                flex:1,
+                 child:Container(
+                  height: 7,
+                     padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                     margin: EdgeInsets.fromLTRB(20, 0, 15, 0),
                   decoration: new BoxDecoration(
                     color: Color(0x60FFFFFF),
                     borderRadius: new BorderRadius.all(Radius.circular(10)),
@@ -75,19 +88,25 @@ class _signupState extends State<signup> {
                     },
                     obscureText: false,
                     decoration: const InputDecoration(
+                      border: InputBorder.none,
                       hintText: "Email",
                       hintStyle: TextStyle(
-                          color: Colors.white
+                        color: Colors.white60,
                       ),
                     ),
 
 
                   ) ),
-
-              Container(
-                  height: 60,
+              ),
+              SizedBox(
+                height: 17,
+              ),
+              Expanded(
+                flex:1,
+                child:Container(
+                  height: 7,
                   padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  margin: EdgeInsets.fromLTRB(20, 0, 15, 0),
                   decoration: new BoxDecoration(
                     color: Color(0x60FFFFFF),
                     borderRadius: new BorderRadius.all(Radius.circular(10)),
@@ -102,17 +121,25 @@ class _signupState extends State<signup> {
                     },
                     obscureText: true,
                     decoration: const InputDecoration(
+                        border: InputBorder.none,
                         hintText: " Password ",
                         hintStyle:TextStyle(
-                            color: Colors.white
+                          color: Colors.white60,
                         )
 
                     ),
-                  )),
-              Container(
-                height: 50,
+                  )),),
+            Expanded(
+              flex: 1,
+              child: Container(),
+            ),
+               Expanded(
+                 flex:1,
+                child:Container(
+                height: 7,
                 alignment: Alignment.center,
-                margin: EdgeInsets.fromLTRB(150, 20, 150, 0),
+                margin: EdgeInsets.fromLTRB(20, 8, 15, 0),
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                 decoration: new BoxDecoration(
                   color: Color(0xFFE19600),
                   borderRadius: new BorderRadius.all(Radius.circular(10)),
@@ -120,21 +147,25 @@ class _signupState extends State<signup> {
                 child: FlatButton(
                   child: Text('REGISTER',
                     style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                      fontSize: 16,
                     ),
                   ),
                   onPressed: () async{
                     await _registerAccount();
                   },
                 ),
-              )
+              ),
+        ),
+            Expanded(
+              flex:3,
+              child: Container(
+
+              ),
+            ),
             ],
-
           ),
-
-
-
         ),
       ),
     );
