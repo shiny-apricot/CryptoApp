@@ -28,7 +28,7 @@ class _FavoritesState extends State<Favorites> {
         children: [
           Expanded(
             child: Container(
-              color:  Color(0xFF003942),
+              color:  Color(0xFF001D23),
               child: FutureBuilder(
                 future: favoritesList(),
                 builder: (context,snapshot){
@@ -55,7 +55,7 @@ class _FavoritesState extends State<Favorites> {
                                   List currencyTempList = apiSnapshot.data;
                                   Currency currencyElement = currencyTempList[0];
                                     return Card(
-                                      color: Color(0xFF003942),
+                                      color: Color(0xFF002530),
                                       child: ListTile(
                                         onTap: (){
                                           Favorite favorite = favoritesData[index];
@@ -75,7 +75,7 @@ class _FavoritesState extends State<Favorites> {
                                           '${currencyElement.name}              ${currencyElement.price}',
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 15.0,
+                                            fontSize: 16,
                                             fontStyle: FontStyle.italic,
                                           ),
                                         ),

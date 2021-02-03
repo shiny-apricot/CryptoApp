@@ -148,7 +148,7 @@ class _LoginVerticalState extends State<LoginVertical> {
       child:Column(
         children: <Widget>[
           Expanded(
-            flex: 7,
+            flex: 5,
             child: Container(
               margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
               alignment: Alignment.center,
@@ -171,7 +171,7 @@ class _LoginVerticalState extends State<LoginVertical> {
                 child: Column(
                   children: [
                     Container(
-                      height: 60,
+                      height: 50,
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                       margin: EdgeInsets.only(top: 20),
@@ -199,7 +199,7 @@ class _LoginVerticalState extends State<LoginVertical> {
 
                     ),
                     Container(
-                        height: 60,
+                        height: 50,
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                         margin: EdgeInsets.only(top: 20),
@@ -227,7 +227,7 @@ class _LoginVerticalState extends State<LoginVertical> {
                           ),
                         ),
                     SizedBox(
-                      height: 10,
+                      height: 15,
                     ),
                     Row(
                       children: [

@@ -1,5 +1,5 @@
-import 'dart:async';
 
+import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:cryptoapp/pages/main_page.dart';
 import 'package:cryptoapp/pages/my_investments.dart';
@@ -179,10 +179,10 @@ class _MainState extends State<Main> {
 
   List<Widget> _appBarSelection = <Widget>[
     AppBar(
-      backgroundColor: Color(0xFF002B32),
+      backgroundColor: Color(0xFF001D23),
     ),
     AppBar(
-      backgroundColor: Color(0xFF002B32),
+      backgroundColor: Color(0xFF001D23),
     ),
     CustomAppBar()
   ];
@@ -212,7 +212,7 @@ class _MainState extends State<Main> {
         key: _scaffoldKey,
       drawer: Drawer(
         child: Container(
-          color: Color(0xFF003942),
+          color: Color(0xFF001D23),
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
@@ -230,7 +230,7 @@ class _MainState extends State<Main> {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    color: Color(0xFF002B32),
+                    color: Color(0xFF001D23),
                   ),
                 ),
               ),
@@ -278,7 +278,7 @@ class _MainState extends State<Main> {
           ),
         ),
       ),
-      backgroundColor: Color(0xFF003942),
+      backgroundColor: Color(0xFF001D23),
       body: _bottomBarPage.elementAt(_currentIndex),
       appBar: _appBarSelection.elementAt(_currentIndex),
       floatingActionButton: fabList(context).elementAt(_currentIndex),
@@ -288,7 +288,7 @@ class _MainState extends State<Main> {
         selectedItemColor: Colors.redAccent,
         unselectedItemColor: Colors.white70,
         currentIndex: _currentIndex,
-        backgroundColor: Color(0xFF002B32),
+        backgroundColor: Color(0xFF001D23),
         iconSize: 30,
         items: [
           BottomNavigationBarItem(

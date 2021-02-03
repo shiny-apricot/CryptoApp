@@ -104,7 +104,7 @@ class _MyInvestmentsState extends State<MyInvestments> {
           Expanded(
             child: Container(
               padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-              color: Color(0xFF003942),
+              color: Color(0xFF001D23),
               child: FutureBuilder(
                 future: getInvestList(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {

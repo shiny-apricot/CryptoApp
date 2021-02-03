@@ -101,10 +101,12 @@ class _SelectionRowState extends State<SelectionRow> {
 
   Widget _searchBarBuilder(SearchBarComponentData data) {
     List<Widget> list = [];
-    list.add(Flexible(
-        child: data.searchField,
-        flex: data.menuFlexValues.searchField
-    ));
+    list.add(
+        Flexible(
+          child: data.searchField,
+          flex: data.menuFlexValues.searchField
+        )
+    );
 
     if (data.isSearching)
       list.add(Flexible(

@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
               children: [
                 Container(
                     alignment: Alignment.center,
-                    height: 55,
+                    height: 50,
                     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                     decoration: new BoxDecoration(
                       color: Color(0x35D3D3D3),
@@ -90,19 +90,19 @@ class _HomeState extends State<Home> {
                         'Main Currency',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 17.0,
+                          fontSize: 15.0,
                           fontStyle: FontStyle.italic,
                         ),
                       ),
                     )
                 ),
-                Divider(height: 25,thickness: 1,color: Colors.grey[800], indent: 25, endIndent: 25),
+                Divider(height: 25,thickness: 1,color: Colors.white38, indent: 25, endIndent: 25),
                 Container(
                   alignment: Alignment.centerLeft,
-                  height: 55,
+                  height: 50,
                   margin: EdgeInsets.only(left: 20, right: 20),
                   decoration: new BoxDecoration(
-                    color: Color(0xFF003941),
+                    color: Color(0xFF002B32),
                     borderRadius: new BorderRadius.all(Radius.circular(25)),
                     border: Border.all(color: Colors.white, width: 1),
                   ),
@@ -146,7 +146,7 @@ class _HomeState extends State<Home> {
                 ),
                 Expanded(
                   child: Container(
-                    color: Color(0xFF003942),
+                    color: Color(0xFF001D23),
                     child:
                     /* ==================FUTURE BUILDER ===================== */
                     FutureBuilder(
@@ -154,7 +154,7 @@ class _HomeState extends State<Home> {
                         builder: (context, snapshot)
                         {
                           List cryptoList = snapshot.data;
-                          int length;
+                          int length = 0;
                           if(cryptoList != null) {
                             length = cryptoList.length;
                             print('future length = $length');
@@ -184,19 +184,19 @@ class _HomeState extends State<Home> {
                                             child: Text(
                                               element.name,
                                               style: TextStyle(
-                                                color:Colors.amberAccent,
-                                                fontSize: 20,
+                                                color: Colors.white,
+                                                fontSize: 17,
                                                 fontWeight: FontWeight.bold,
                                             ),
                                             ),
                                           ),
                                           subtitle: Container(
                                             alignment: Alignment.centerLeft,
-                                            height: 30,
+                                            height: 20,
                                             child: Text('${element.price} ',
                                               style: TextStyle(
                                                 color:Colors.white,
-                                                fontSize: 16,
+                                                fontSize: 14,
                                               ),
                                             ),
                                           ),

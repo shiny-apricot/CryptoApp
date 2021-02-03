@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             Expanded(
                 child: Container(
                   alignment: Alignment.center,
-                  color: Color(0xFF002B32),
+                  color: Color(0xFF001D23),
                   child: Text(
                     'My Investments',
                     style: TextStyle(
