@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cryptoapp/pages/login/login_vertical.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -106,7 +107,8 @@ class _ProfileState extends State<Profile> {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: (){
+                    onPressed: ()async{
+                      logOut();
                       Navigator.of(context).pushNamed('/login');
                     },
                   ),

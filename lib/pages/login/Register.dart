@@ -139,14 +139,14 @@ class _signupState extends State<signup> {
       ),
     );
   }
-  void _registerAccount() async {
+  Future <void> _registerAccount() async {
     try{final User user = (await _auth.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text)).user;
     if(user!=null){
       if(!user.emailVerified){
         await user.sendEmailVerification();
       }
       await user.updateProfile(displayName: _nameController.text);
-      final user1 = _auth.currentUser;
+      _auth.currentUser;
       Navigator.of(context).pushNamed('/login').then((value) {
         setState(() {});
       });

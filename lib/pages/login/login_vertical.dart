@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
@@ -13,6 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
+dynamic user;
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 void callbackDispatcher() {
 
@@ -86,7 +87,7 @@ class _LoginVerticalState extends State<LoginVertical> {
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController= TextEditingController();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
@@ -315,15 +316,16 @@ class _LoginVerticalState extends State<LoginVertical> {
     ) );
   }
 
-  void _login() async{
+  Future _login() async{
+
     try{
-      final User user = (
+      user = (
       await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text)).user;
       if(!user.emailVerified){
       await user.sendEmailVerification();
       }
-      Navigator.of(context).pushNamed('/home');
       _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Logged in successfully.")));
+      Navigator.of(context).pushNamed('/home');
       getDataFromFirebaseAndInsertToDatabase();
       getInvestmentsAndInsertDatabase();
 
@@ -344,6 +346,7 @@ class _LoginVerticalState extends State<LoginVertical> {
       });
     }
   }
+
 
   void getDataFromFirebaseAndInsertToDatabase() async{
     DBHelper dbhelper = DBHelper();
@@ -429,8 +432,14 @@ class _LoginVerticalState extends State<LoginVertical> {
 
   }
 
-
-
+}
+Future logOut()async{
+  try{
+    return await _auth.signOut();
+  }
+  catch(e){
+    print(e.toString());
+  }
 }
 
 

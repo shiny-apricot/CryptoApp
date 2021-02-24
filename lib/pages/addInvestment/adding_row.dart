@@ -6,6 +6,7 @@ import 'package:cryptoapp/pages/addInvestment/selection_row.dart';
 import 'package:cryptoapp/pages/addInvestment/value_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cryptoapp/pages/login/login_vertical.dart';
 
 class AddingRow extends StatefulWidget {
   @override
@@ -91,18 +92,25 @@ class _AddingRowState extends State<AddingRow> {
 class FirebaseInvestment {
 
   Future<void> addInvestment(int id,String investmentCount, String investmentCurrency, String investmentInitialValue){
-
-    DocumentReference investments = FirebaseFirestore.instance.collection('investments').doc("$id");
+    CollectionReference investCollection = FirebaseFirestore.instance.//collection('favorites').doc("${id}");
+    collection(user.uid).doc('investments').collection('investments');
     var data = {
-        'id': id,
-        'currency':investmentCurrency,
-        'count': investmentCount,
-        'initial_value':investmentInitialValue
+      'id': id,
+      'currency':investmentCurrency,
+      'count': investmentCount,
+      'initial_value':investmentInitialValue
     };
+    /*return favoriteCollection.set(data).then((value) {
+      print('%%%%%% ${favorite.id} added to FireStore... %%%%%%');
+    });*/
+    return investCollection.add(data);
+/*
+    DocumentReference investments = FirebaseFirestore.instance.collection('investments').doc("$id");
+
     return investments.set(data).then((value) {
       print('%%%%%% $investmentCount added to FireStore... %%%%%%');
     });
-
+*/
   }
 
 

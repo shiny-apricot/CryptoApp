@@ -31,7 +31,7 @@ dependencies:
   material_design_icons_flutter: 4.0.5755
   font_awesome_flutter: '>= 4.7.0'
   http: ^0.12.2
-
+  provider: ^4.3.3
   cloud_firestore: ^0.14.4
   firebase_auth: ^0.18.4+1
   firebase_core: ^0.5.3

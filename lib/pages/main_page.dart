@@ -10,6 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:cryptoapp/pages/login/login_vertical.dart';
 
 
 class Home extends StatefulWidget {
@@ -319,13 +320,13 @@ class _HomeState extends State<Home> {
 
   Future<void> addFavorite(Favorite favorite, int id){
 
-    DocumentReference favoriteCollection = FirebaseFirestore.instance.collection('favorites').doc("${id}");
-
+    CollectionReference favoriteCollection = FirebaseFirestore.instance.//collection('favorites').doc("${id}");
+    collection(user.uid).doc('favorites').collection('favorites');
     var data = {'currency': favorite.currency};
-
-    return favoriteCollection.set(data).then((value) {
+    /*return favoriteCollection.set(data).then((value) {
       print('%%%%%% ${favorite.id} added to FireStore... %%%%%%');
-    });
+    });*/
+    return favoriteCollection.add(data);
   }
 
 }

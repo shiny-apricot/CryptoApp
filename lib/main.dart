@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:connectivity/connectivity.dart';
+import 'package:cryptoapp/pages/login/login_vertical.dart';
 import 'package:cryptoapp/pages/main_page.dart';
 import 'package:cryptoapp/pages/my_investments.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,11 +14,8 @@ import 'package:workmanager/workmanager.dart';
 import 'data/db_helper.dart';
 import 'data/model/Favorite.dart';
 import 'data/services/crypto_api_service.dart';
-
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
 void callbackDispatcher() {
-
   Workmanager.executeTask((taskName, inputData) async {
     String description = "";
 
@@ -27,8 +24,6 @@ void callbackDispatcher() {
     DBHelper dbhelper = DBHelper();
     List favorites = await dbhelper.getFavoritesList();
     List<String> favoriteList = List();
-
-
     for(Favorite favorite in favorites)
     {
       String currency = favorite.currency;
@@ -121,12 +116,10 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-
   int _currentIndex = 0;
   String _connectionStatus = 'Unknown';
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
-
   @override
   void initState(){
     super.initState();
@@ -204,10 +197,9 @@ class _MainState extends State<Main> {
       )
     ];
   }
-
   @override
   Widget build(BuildContext context) {
-
+    print(user.uid);
     return Scaffold(
         key: _scaffoldKey,
       drawer: Drawer(
